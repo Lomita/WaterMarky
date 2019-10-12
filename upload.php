@@ -1,12 +1,13 @@
 <?php
-    /** sendsa notification message and redirects to WaterMarky.html
+    session_start();
+    /** sendsa notification message and redirects to WaterMarky.php
      * @param msg message to confirm 
      */
     function popMsg($msg)
     {
         print_r('<script type="text/javascript" language="Javascript"> 
                 confirm("'.$msg.'"); 
-                window.location.href = "WaterMarky.html";
+                window.location.href = "WaterMarky.php";
                 </script>');
     }
 
@@ -37,7 +38,10 @@
         
         //upload
         if(move_uploaded_file($file['tmp_name'], 'upload/'.$uniqFileName))
+        {
+            $_SESSION['newFile'] = true;            
             return popMsg("Successfully uploaded");
+        }
         return popMsg("There was an error uploading your file!");     
     }
 ?>
