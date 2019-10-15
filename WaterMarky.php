@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
     <?php
+        //phpinfo();
         session_start();
         if(!isset($_SESSION['dropDownItems']))
             $_SESSION['dropDownItems'] = array (NULL);
 
         //true to show already uploaded images ;)
         if(!isset($_SESSION['newFile']))
+            $_SESSION['newFile'] = true;
+        
+        if(!isset($_SESSION['picSelection']))
             $_SESSION['newFile'] = true;
     ?>
 	<head>
@@ -37,7 +41,7 @@
         <div class="container" name="upload">
             <div>
                 <h6>Choose picture</h6>
-                <select class="custom-select" id="filesDropDown">
+                <select class="custom-select" id="picDropDown" name="picDropDown">
                     <?php               
                         if($_SESSION['newFile'] === true)
                         {
@@ -58,7 +62,6 @@
                             }
                             $_SESSION['newFile'] === false;
                         }
-
                     ?>        
                 </select>
             </div>      
@@ -66,10 +69,36 @@
             <?php
                 
                 //DEBUG :3
-                echo '<pre>';
-                print_r($_SESSION['dropDownItems']);
-                echo '</pre>';
-                
+                //echo '<pre>';
+                //print_r($_POST['picDropDown']);
+                //echo '</pre>';
+                        
+                if(isset($_SESSION['dropDownItems'][0]['filePath']))
+                {
+                    /* Create Imagick object */
+                    $Imagick = new Imagick();
+
+                    /* Create a drawing object and set the font size */
+                    $ImagickDraw = new ImagickDraw();
+                    $ImagickDraw->setFontSize( 50 );
+
+                    /* Read image into object*/
+                    $Imagick->readImage(/*'../htdocs/WaterMarky/'.$_SESSION['dropDownItems'][0]['filePath']*/ 'C:\xampp\htdocs\WaterMarky\upload\Download.5da589e02e4782.73848217.jpg');
+
+                    /*
+                    /* Seek the place for the text */
+                    $ImagickDraw->setGravity( Imagick::GRAVITY_CENTER );
+
+                    /* Write the text on the image */
+                    $Imagick->annotateImage( $ImagickDraw, 4, 20, 0, "Test Watermark" );
+
+                    /* Set format to png */
+                    $Imagick->setImageFormat( 'jpg' );
+
+                    /* Output */
+                    header( "Content-Type: image/{$Imagick->getImageFormat()}" );
+                    echo $Imagick->getImageBlob();
+                }
                 
                 /* Array containing sample image file names
                 $images = array("kites.jpg", "balloons.jpg");
