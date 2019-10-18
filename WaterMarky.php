@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html>
     <?php
-        //phpinfo();
         session_start();
+        //phpinfo();
         if(!isset($_SESSION['dropDownItems']))
             $_SESSION['dropDownItems'] = array (NULL);
 
         //true to show already uploaded images ;)
         if(!isset($_SESSION['newFile']))
-            $_SESSION['newFile'] = true;
-        
-        if(!isset($_SESSION['picSelection']))
             $_SESSION['newFile'] = true;
     ?>
 	<head>
@@ -28,6 +25,7 @@
         
         <!-- UPLOAD -->
         <div class="container" name="upload">
+        <h6>Upload pictures</h6>
             <form action="upload.php" method="post" enctype="multipart/form-data">
                 <div class="input-group mb-3">
                     <input type="file" name="file" id="inputGroupFile03">
@@ -38,68 +36,81 @@
         </div>
 
         <!-- FILESELECTION -->
-        <div class="container" name="upload">
-            <div>
-                <h6>Choose picture</h6>
-                <select class="custom-select" id="picDropDown" name="picDropDown">
-                    <?php               
-                        if($_SESSION['newFile'] === true)
-                        {
-                            //refill combo box
-                            $_SESSION['dropDownItems'] = array(NULL);
-                            $all_files = glob("upload/*.*");
-                            for ($i=0; $i<count($all_files); $i++)
+        <div class="container" name="FileSelection">
+            <form action="enchant_pictures.php" method="post">
+                <div class="form-group">
+                    <h6>Choose picture</h6>
+                    <select class="custom-select" id="picDropDown" name="picDropDown">
+                        <?php               
+                            if($_SESSION['newFile'] === true)
                             {
-                                $image_name = $all_files[$i];
-                                $supported_format = array('jpg', 'png', 'bmp', 'svg');
-                                $ext = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
-                                if (in_array($ext, $supported_format))
+                                //refill combo box
+                                $_SESSION['dropDownItems'] = array(NULL);
+                                $all_files = glob("upload/*.*");
+                                for ($i=0; $i<count($all_files); $i++)
                                 {
-                                    //echo '<img src="'.$image_name .'" alt="'.$image_name.'" />'."<br /><br />";
-                                    print_r('<option value="'.$i.'">'.$image_name.'</option>');
-                                    $_SESSION['dropDownItems'][$i]['filePath'] = $image_name;
-                                }        
+                                    $image_name = $all_files[$i];
+                                    $supported_format = array('jpg', 'png', 'bmp', 'svg');
+                                    $ext = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+                                    if (in_array($ext, $supported_format))
+                                    {
+                                        //echo '<img src="'.$image_name .'" alt="'.$image_name.'" />'."<br /><br />";
+                                        print_r('<option value="'.$i.'">'.$image_name.'</option>');
+                                        $_SESSION['dropDownItems'][$i]['filePath'] = $image_name;
+                                    }        
+                                }
                             }
-                            $_SESSION['newFile'] === false;
-                        }
-                    ?>        
-                </select>
-            </div>      
+                        ?>        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <h6>Choose watermark</h6>
+                    <select class="custom-select" id="waterMarkDropDown" name="waterMarkDropDown">
+                        <?php               
+                            if($_SESSION['newFile'] === true)
+                            {
+                                //refill combo box
+                                $_SESSION['dropDownItems'] = array(NULL);
+                                $all_files = glob("upload/*.*");
+                                for ($i=0; $i<count($all_files); $i++)
+                                {
+                                    $image_name = $all_files[$i];
+                                    $supported_format = array('jpg', 'png', 'bmp', 'svg');
+                                    $ext = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+                                    if (in_array($ext, $supported_format))
+                                    {
+                                        //echo '<img src="'.$image_name .'" alt="'.$image_name.'" />'."<br /><br />";
+                                        print_r('<option value="'.$i.'">'.$image_name.'</option>');
+                                        $_SESSION['dropDownItems'][$i]['filePath'] = $image_name;
+                                    }        
+                                }
+                                $_SESSION['newFile'] === false;
+                            }
+                        ?>        
+                    </select>
+                </div> 
+                    <button class="btn btn-primary" type="submit" name="submit" id="inputGroupFileAddon03">Do The Image Magic</button>
+                </div> 
+            </form>   
         </div>
-            <?php
-                
+        <div class="container" id="preview" name="preview"> 
+        <h6>Preview</h6>
+         <img src="
+         <?php
+                if(isset($_SESSION['preview_pic']) && is_file($_SESSION['preview_pic']))
+                    echo $_SESSION['preview_pic'];      
+                else
+                    echo 'rsc/no_img.png'; 
+                    
+        ?>
+         " alt="" class="img-thumbnail">
+            
+           <?php         
                 //DEBUG :3
                 //echo '<pre>';
-                //print_r($_POST['picDropDown']);
+                //print_r($_SESSION['preview_pic']);
                 //echo '</pre>';
-                        
-                if(isset($_SESSION['dropDownItems'][0]['filePath']))
-                {
-                    /* Create Imagick object */
-                    $Imagick = new Imagick();
 
-                    /* Create a drawing object and set the font size */
-                    $ImagickDraw = new ImagickDraw();
-                    $ImagickDraw->setFontSize( 50 );
-
-                    /* Read image into object*/
-                    $Imagick->readImage(/*'../htdocs/WaterMarky/'.$_SESSION['dropDownItems'][0]['filePath']*/ 'C:\xampp\htdocs\WaterMarky\upload\Download.5da589e02e4782.73848217.jpg');
-
-                    /*
-                    /* Seek the place for the text */
-                    $ImagickDraw->setGravity( Imagick::GRAVITY_CENTER );
-
-                    /* Write the text on the image */
-                    $Imagick->annotateImage( $ImagickDraw, 4, 20, 0, "Test Watermark" );
-
-                    /* Set format to png */
-                    $Imagick->setImageFormat( 'jpg' );
-
-                    /* Output */
-                    header( "Content-Type: image/{$Imagick->getImageFormat()}" );
-                    echo $Imagick->getImageBlob();
-                }
-                
                 /* Array containing sample image file names
                 $images = array("kites.jpg", "balloons.jpg");
                 
@@ -111,6 +122,7 @@
                     echo '</div>';
                 }*/
             ?>
+            </div>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	</body>
 </html>
