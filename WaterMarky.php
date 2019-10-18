@@ -89,28 +89,46 @@
                         ?>        
                     </select>
                 </div> 
+                <div class="form-group">
                     <button class="btn btn-primary" type="submit" name="submit" id="inputGroupFileAddon03">Do The Image Magic</button>
                 </div> 
             </form>   
         </div>
+
+        <div class="container" id="download" name="download"> 
+            <form>
+                <div class="form-row">
+                    <div class="col">
+                        <select id="inputState" class="form-control">
+                            <option selected>Choose format...</option>
+                            <option>jpg</option>
+                            <option>png</option>
+                            <option>bmp</option>
+                            <option>svg</option>
+                            <option>pdf</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit" name="submit" id="inputGroupFileAddon03">Do The Image Magic</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <div class="container" id="preview" name="preview"> 
         <h6>Preview</h6>
-         <img src="
          <?php
                 if(isset($_SESSION['preview_pic']) && is_file($_SESSION['preview_pic']))
-                    echo $_SESSION['preview_pic'];      
+                    echo '<a href="'.$_SESSION['preview_pic'].'""><img src="'.$_SESSION['preview_pic'].'" alt="" class="img-thumbnail">';      
                 else
-                    echo 'rsc/no_img.png'; 
-                    
-        ?>
-         " alt="" class="img-thumbnail">
-            
-           <?php         
+                    echo '<img src="rsc/no_img.png" alt="" class="img-thumbnail">';     
+        
                 //DEBUG :3
                 //echo '<pre>';
                 //print_r($_SESSION['preview_pic']);
                 //echo '</pre>';
 
+                //https://www.tutorialrepublic.com/php-tutorial/php-file-download.php
                 /* Array containing sample image file names
                 $images = array("kites.jpg", "balloons.jpg");
                 
@@ -122,7 +140,7 @@
                     echo '</div>';
                 }*/
             ?>
-            </div>
+        </div>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	</body>
 </html>

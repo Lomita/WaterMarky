@@ -52,14 +52,7 @@
         // Draw the watermark on your image
         $image->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
 
-
-        // From now on depends on you what you want to do with the image
-        // for example save it in some directory etc.
-        // In this example we'll Send the img data to the browser as response
-        // with Plain PHP
-
-        // Or if you prefer to save the image on some directory
-        // Take care of the extension and the path !
+        // save the image 
         $image->writeImage(getcwd(). "/enchanted_pics/pic_watermark." . $image->getImageFormat()); 
         $_SESSION['preview_pic'] = "enchanted_pics/pic_watermark." . $image->getImageFormat();
 
