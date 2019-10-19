@@ -44,10 +44,41 @@
             $watermark_Width = $watermark->getImageWidth();
             $watermark_Height = $watermark->getImageHeight();
         }
-
+        
+        // Check if a location was selected
+        // Check which location was chosen
         // Calculate the position
-        $x = ($img_Width - $watermark_Width) / 2;
-        $y = ($img_Height - $watermark_Height) / 2;
+        if (isset($_SESSION['location'])) {
+            switch ($_SESSION['location']) {
+
+                case 'top-left':
+                    // top left
+                    $x = 0;
+                    $y = 0;
+                break;
+
+                case 'bottom-right':
+                    // bottom right
+                    $x = ($img_Width - $watermark_Width);
+                    $y = ($img_Height - $watermark_Height);//not yet correct position
+                break;
+
+                default:
+                    // middle
+                    $x = ($img_Width - $watermark_Width) / 2;
+                    $y = ($img_Height - $watermark_Height) / 2;
+                    
+                break;
+            }
+        } else {
+            popMsg("no location has been set, therefore default location will be applied");
+            // middle
+            $x = ($img_Width - $watermark_Width) / 2;
+            $y = ($img_Height - $watermark_Height) / 2;
+        }
+
+        
+        
 
         // Draw the watermark on your image
         $image->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
