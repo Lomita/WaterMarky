@@ -5,7 +5,7 @@
     //print_r($_POST);
     //echo '</pre>';
 
-    /** sendsa notification message and redirects to WaterMarky.php
+    /** sends a notification message and redirects to WaterMarky.php
      * @param msg message to confirm 
      */
     function popMsg($msg)

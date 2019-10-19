@@ -1,6 +1,6 @@
 <?php
     session_start();
-    /** sendsa notification message and redirects to WaterMarky.php
+    /** sends a notification message and redirects to WaterMarky.php
      * @param msg message to confirm 
      */
     function popMsg($msg)
@@ -29,11 +29,11 @@
         if($file['error'] !== 0)
             return popMsg("There was an error uploading your file error code: ".$file['error']); 
         
-        //check if file is bigger then 1GB    
+        //check if file is bigger than 1GB    
         if($file['size'] > 1000000)
             return popMsg("The file is too big!"); 
 
-        //create uniq filename
+        //create uniqe filename
         $uniqFileName = explode('.', $file['name'])[0].".".uniqid('', true).".".$fileExt;
         
         //upload
