@@ -77,9 +77,6 @@
             $y = ($img_Height - $watermark_Height) / 2;
         }
 
-        
-        
-
         // Draw the watermark on your image
         $image->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
 

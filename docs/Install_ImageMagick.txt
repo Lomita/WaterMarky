@@ -1,15 +1,4 @@
-Steps to Install ImageMagick on UwAmp for Windows:
-as of March 31, 2016
-Detailed guide for newbies like me.
-Took a long time to get it to work.
-
-I initially followed:
-http://php .net/manual/en/imagick.installation.php
-but after installation, PHPInfo under imagick shows
-number of supported formats = 0
-
-So I followed these steps, clobbered from various sources
-to get it to work.
+ImageMagick Installation
 
 1. Open PHPInfo and check:
    Architecture = x86 or x64
@@ -19,19 +8,14 @@ to get it to work.
 
    http://windows.php.net/downloads/pecl/deps/
 
-   In my case I downloaded: ImageMagick-6.9.3-7-vc11-x86.zip
+   In my case I downloaded: ImageMagick-6.9.3-7-vc14-x86.zip
    because the Architecture under PHPInfo is x86
-   as for vc11 or vc14
-   search google for "visual c++ 11 runtime" or
-   "visual c++ 14 runtime" and install it
+   as for vc14
+   search google for "visual c++ 14 runtime" and install it
 
 3. Unzip and copy all dlls from the bin subfolder to the
     Apache bin directory. It's a bunch of CORE_RL_*.dll
     and IM_MOD_RL_*.dll plus a few other dlls.
-
-    In my case, I installed UwAmp in C:\UwAmp, so:
-    (from zip) bin/*.dll --> C:\UwAmp\bin\apache\bin
-
 
 4. Goto:
 
@@ -40,31 +24,19 @@ to get it to work.
     as of today, latest is 3.4.1 so I went to:
     http://pecl.php.net/package/imagick/3.4.1/windows
 
-    My PHP version is: 5.6.18, and Thread Safety is Yes from
-    Step #1, so I downloaded:
-       5.6 Thread Safe (TS) x86
-    I got: php_imagick-3.4.1-5.6-ts-vc11-x86.zip
+    For example if you're PHP version is: 7.0.0, and Thread Safety is Yes from
+    Step #1, download:
+		7.0 Thread Safe (TS) x86
 
 5. Unzip and copy "php_imagick.dll" to the php extension folder:
 
-    In my case:
-    php_imagick.dll --> C:\UwAmp\bin\php\php-5.6.18\ext
+    For example:
+    php_imagick.dll --> C:\xampp\php\ext
 
-    Note: this ZIP also contains dlls which other guides says
-    to extract to the extension folder of apache.
-    NO NEED TO DO IT. Step #3 has taken care of it.
-
-6. Edit "php.ini" and add at the very end (could be
-    anywhere I suppose):
+6. Edit "php.ini" and add at the very end:
 
       [Imagick]
       extension=php_imagick.dll
-
-      For super newbies: click the edit button in the UwAmp UI,
-      "php_uwamp.ini" will open and edit it. It will be copied to
-      the correct php.ini when UwAmp is restarted. I had
-      trouble at first since there are several php*.ini scattered
-      all over.
 
 7. Restart Apache
 
