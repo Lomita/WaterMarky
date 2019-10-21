@@ -30,7 +30,7 @@
             return popMsg("There was an error uploading your file error code: ".$file['error']); 
         
         //check if file is bigger than 1GB    
-        if($file['size'] > 1000000)
+        if($file['size'] > 1000000000)
             return popMsg("The file is too big! Cannot upload files of size larger than 1GB"); 
 
         //create uniqe filename
