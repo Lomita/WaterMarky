@@ -80,6 +80,23 @@
             $y = ($img_Height - $watermark_Height) / 2;
         }
 
+        //echo "You have written :" .$_POST['text'];  // Displaying Selected Value
+        
+        // Check if a text was added
+        // Draw text
+        if (isset($_POST['text'])) {
+            $draw = new ImagickDraw();
+            // Font properties
+            $draw->setFont('Arial');
+            $draw->setFillColor('white');
+            $draw->setFontSize( 40 );
+            $draw->setStrokeColor('black');
+            $draw->setStrokeWidth(1);
+
+            $yText = $img_Height - 20;
+            $image->annotateImage($draw, 0, $yText, 0, $_POST['text']);
+        }
+
         // Draw the watermark on your image
         $image->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
 
