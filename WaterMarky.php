@@ -90,8 +90,20 @@
                     </select>
                 </div> 
                 <div class="form-group">
-                <h6>Options</h6>
-                    <input name="text" type="text" class="form-control" placeholder="Enter text (optional)"><br>
+                    <h6>Options</h6>
+                    <div class="form-row">
+                        <div class="col">
+                            <input name="text" type="text" class="form-control" placeholder="Enter text (optional)">
+                        </div>
+                        <div class="col">
+                            <select name="inputShape" class="form-control">
+                                <option selected>Add shape (optional)</option>
+                                <option value="rectangle">rectangle</option>
+						        <option value="circle">circle</option>
+					        </select>
+                        </div>
+                    </div>
+                    <br>
                     <div class="form-row">
                         <div class="col">
                             <select name="inputLocation" class="form-control">

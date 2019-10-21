@@ -80,12 +80,14 @@
             $y = ($img_Height - $watermark_Height) / 2;
         }
 
+        //create new draw object
+        $draw = new ImagickDraw();
+
         //echo "You have written :" .$_POST['text'];  // Displaying Selected Value
         
         // Check if a text was added
         // Draw text
         if (isset($_POST['text'])) {
-            $draw = new ImagickDraw();
             // Font properties
             $draw->setFont('Arial');
             $draw->setFillColor('white');
@@ -95,6 +97,34 @@
 
             $yText = $img_Height - 20;
             $image->annotateImage($draw, 0, $yText, 0, $_POST['text']);
+        }
+
+        // Check if a shape was added
+        // Draw shape
+        if (isset($_POST['inputShape'])) {
+            switch ($_POST['inputShape']) {
+                case 'rectangle':
+                    // rectangle properties
+                    $draw->setFillColor('wheat');
+                    $draw->setStrokeColor( new ImagickPixel( 'green' ) );
+                    $x1Rect = $img_Width - 50;
+                    $y1Rect = $img_Height - 50;
+                    // Draw the rectangle
+                    $draw->rectangle( $x1Rect,  $y1Rect,  $img_Width, $img_Height);
+                break;
+
+                case 'circle':
+                    // circle properties
+                   
+                    // Draw the circle
+                    
+                break;
+
+                default:
+                   //do nothing
+                    
+                break;
+            }
         }
 
         // Draw the watermark on your image
