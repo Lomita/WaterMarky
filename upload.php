@@ -23,7 +23,7 @@
         //check if file extension is allowed
         $allowed = array('jpg', 'png', 'bmp', 'svg');
         if(!in_array($fileExt, $allowed))
-            return popMsg("You cannot upload files of type ".$fileExt); 
+            return popMsg("You cannot upload files of type ".$fileExt + "Files must be of one of the following types .jpg/.png/.bmp/.svg"); 
 
         //checkk if an error occured
         if($file['error'] !== 0)
@@ -31,7 +31,7 @@
         
         //check if file is bigger than 1GB    
         if($file['size'] > 1000000)
-            return popMsg("The file is too big!"); 
+            return popMsg("The file is too big! Cannot upload files of size larger than 1GB"); 
 
         //create uniqe filename
         $uniqFileName = explode('.', $file['name'])[0].".".uniqid('', true).".".$fileExt;
