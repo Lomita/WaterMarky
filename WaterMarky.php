@@ -83,7 +83,7 @@
                                         if (in_array($ext, $supported_format))
                                         {
                                             //echo '<img src="'.$image_name .'" alt="'.$image_name.'" />'."<br /><br />";
-                                            print_r('<option value="'.$i.'">'.$image_name.'</option>');
+                                            print_r('<option value="'.$i.'">'.basename($image_name).'</option>');
                                             $_SESSION['dropDownItems'][$i]['filePath'] = $image_name;
                                         }        
                                     }
@@ -166,7 +166,7 @@
             </form>
         </div>
 
-        <div class="container p-4 mb-2 bg-light  text-dark"> 
+        <div class="container p-4 mb-2 bg-light text-dark"> 
         <h4>Preview</h4>
          <?php
                 if(isset($_SESSION['preview_pic']) && is_file($_SESSION['preview_pic']))
