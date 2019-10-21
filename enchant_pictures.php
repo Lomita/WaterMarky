@@ -83,7 +83,7 @@
                 break;
 
                 case 'right':
-                    $x += ($img_Width + $watermark_Width) / 2 / 2;
+                    $x += ($img_Width + $watermark_Width) / 2;
                 break;
 
                 case 'middle':
