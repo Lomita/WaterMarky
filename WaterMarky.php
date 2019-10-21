@@ -89,8 +89,8 @@
                         ?>        
                     </select>
                 </div> 
-                
-                <form action="#" method="post">
+                <div class="form-group">
+                <h6>Options</h6>
                     <div class="form-row">
                         <div class="col">
                             <select name="inputLocation" class="form-control">
@@ -100,11 +100,11 @@
 					        </select>
                         </div>
                         <div class="col">
-					        <input class="btn btn-primary" type="submit" name="submit" value="Vorschau" />
-				        </div>
+                            <button class="btn btn-primary" type="submit" name="submit" id="download">Do The Image Magic</button>
+                        </div>
                     </div>
-                </form>
-            </form>   
+                </div>
+            </form>
         </div>
 
         <!-- DOWNLOAD -->
@@ -124,7 +124,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary" type="submit" name="submit" id="download">Do The Image Magic</button>
+                            <button class="btn btn-primary" type="submit" name="submit" id="download">Download</button>
                         </div>
                     </div>
                 </div>
