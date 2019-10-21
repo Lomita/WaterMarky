@@ -101,7 +101,6 @@
                             </select>
                         </div>  
                         <div class="col">
-                            <button class="btn btn-primary" type="submit" name="submit" id="download">Do The Image Magic</button>
                         </div>
                     </div> 
                 </div> 
@@ -110,12 +109,12 @@
 
         <!-- DOWNLOAD -->
         <div class="container"> 
-            <form action="download.php" method="post">
+            <form action="enchant_pictures.php" method="post">
                 <h6>Download</h6>
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col">
-                            <select id="format" class="form-control">
+                            <select id="inputState" class="form-control">
                                 <option selected>Choose format...</option>
                                 <option>jpg</option>
                                 <option>png</option>
@@ -125,7 +124,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary" type="submit" name="submit" id="download">Download</button>
+                            <button class="btn btn-primary" type="submit" name="submit" id="download">Do The Image Magic</button>
                         </div>
                     </div>
                 </div>

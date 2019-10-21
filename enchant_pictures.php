@@ -1,9 +1,9 @@
 <?php    
     session_start();                    
     //debug
-    echo '<pre>';
-    print_r($_POST);
-    echo '</pre>';
+    //echo '<pre>';
+    //print_r($_POST);
+    //echo '</pre>';
 
     /** sends a notification message and redirects to WaterMarky.php
      * @param msg message to confirm 
@@ -48,8 +48,10 @@
         // Check if a location was selected
         // Check which location was chosen
         // Calculate the position
-        if (isset($_POST['inputLocation'])) {
-            switch ($_POST['inputLocation']) {
+        echo $_SESSION['location'];
+
+        if (isset($_SESSION['location'])) {
+            switch ($_SESSION['location']) {
 
                 case 'top-left':
                     // top left
@@ -84,6 +86,6 @@
         $image->writeImage(getcwd(). "/enchanted_pics/pic_watermark." . $image->getImageFormat()); 
         $_SESSION['preview_pic'] = "enchanted_pics/pic_watermark." . $image->getImageFormat();
 
-        return popMsg("Successfully enchanted picture");
+        //return popMsg("Successfully enchanted picture");
     }
 ?>
