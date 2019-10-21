@@ -17,15 +17,15 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	</head>
 	<body>
-		<div class="container">
+		<div class="container p-4 mb-2 bg-light  text-dark">
 			<header>
-				<h1 class="display-4">WaterMarky v1.0</h1>
+				<h1>WaterMarky v1.0</h1>
 			</header>
         </div>
         
         <!-- UPLOAD -->
-        <div class="container">
-        <h6>Upload pictures</h6>
+        <div class="container p-4 mb-2 bg-light  text-dark">
+        <h4>Upload pictures</h4>
             <form action="upload.php" method="post" enctype="multipart/form-data">
                 <div class="input-group mb-3">
                     <input type="file" name="file" id="inputGroupFile03">
@@ -36,95 +36,118 @@
         </div>
 
         <!-- FILESELECTION -->
-        <div class="container">
+        <div class="container p-4 mb-2 bg-light  text-dark">
+        <h4>Picture Settings</h4>
             <form action="enchant_pictures.php" method="post">
-                <div class="form-group">
-                    <h6>Choose picture</h6>
-                    <select class="custom-select" id="picDropDown" name="picDropDown">
-                        <?php               
-                            if($_SESSION['newFile'] === true)
-                            {
-                                //refill combo box
-                                $_SESSION['dropDownItems'] = array(NULL);
-                                $all_files = glob("upload/*.*");
-                                for ($i=0; $i<count($all_files); $i++)
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col">
+                        <h6>Picture</h6>
+                        <select class="custom-select" id="picDropDown" name="picDropDown">
+                            <?php               
+                                if($_SESSION['newFile'] === true)
                                 {
-                                    $image_name = $all_files[$i];
-                                    $supported_format = array('jpg', 'png', 'bmp', 'svg');
-                                    $ext = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
-                                    if (in_array($ext, $supported_format))
+                                    //refill combo box
+                                    $_SESSION['dropDownItems'] = array(NULL);
+                                    $all_files = glob("upload/*.*");
+                                    for ($i=0; $i<count($all_files); $i++)
                                     {
-                                        //echo '<img src="'.$image_name .'" alt="'.$image_name.'" />'."<br /><br />";
-                                        print_r('<option value="'.$i.'">'.$image_name.'</option>');
-                                        $_SESSION['dropDownItems'][$i]['filePath'] = $image_name;
-                                    }        
+                                        $image_name = $all_files[$i];
+                                        $supported_format = array('jpg', 'png', 'bmp', 'svg');
+                                        $ext = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+                                        if (in_array($ext, $supported_format))
+                                        {
+                                            //echo '<img src="'.$image_name .'" alt="'.$image_name.'" />'."<br /><br />";
+                                            print_r('<option value="'.$i.'">'.basename($image_name).'</option>');
+                                            $_SESSION['dropDownItems'][$i]['filePath'] = $image_name;
+                                        }        
+                                    }
                                 }
-                            }
-                        ?>        
-                    </select>
-                </div>
-                <div class="form-group">
-                    <h6>Choose watermark</h6>
-                    <select class="custom-select" id="waterMarkDropDown" name="waterMarkDropDown">
-                        <?php               
-                            if($_SESSION['newFile'] === true)
-                            {
-                                //refill combo box
-                                $_SESSION['dropDownItems'] = array(NULL);
-                                $all_files = glob("upload/*.*");
-                                for ($i=0; $i<count($all_files); $i++)
-                                {
-                                    $image_name = $all_files[$i];
-                                    $supported_format = array('jpg', 'png', 'bmp', 'svg');
-                                    $ext = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
-                                    if (in_array($ext, $supported_format))
-                                    {
-                                        //echo '<img src="'.$image_name .'" alt="'.$image_name.'" />'."<br /><br />";
-                                        print_r('<option value="'.$i.'">'.$image_name.'</option>');
-                                        $_SESSION['dropDownItems'][$i]['filePath'] = $image_name;
-                                    }        
-                                }
-                                $_SESSION['newFile'] === false;
-                            }
-                        ?>        
-                    </select>
-                </div> 
-                <div class="form-group">
-                    <h6>Options</h6>
-                    <div class="form-row">
-                        <div class="col">
-                            <input name="text" type="text" class="form-control" placeholder="Enter text (optional)">
-                        </div>
-                        <div class="col">
-                            <select name="inputShape" class="form-control">
-                                <option selected>Add shape (optional)</option>
-                                <option value="rectangle">rectangle</option>
-						        <option value="circle">circle</option>
-					        </select>
-                        </div>
+                            ?>        
+                        </select>
                     </div>
-                    <br>
-                    <div class="form-row">
-                        <div class="col">
-                            <select name="inputLocation" class="form-control">
-						        <option value="middle">middle</option>
-						        <option value="top-left">top left</option>
-						        <option value="bottom-right">bottom right</option>
-					        </select>
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-primary" type="submit" name="submit" id="download">Do the Image Magick</button>
-                        </div>
+                    <div class="col">
+                        <h6>Watermark</h6>
+                        <select class="custom-select" id="waterMarkDropDown" name="waterMarkDropDown">
+                            <?php               
+                                if($_SESSION['newFile'] === true)
+                                {
+                                    //refill combo box
+                                    $_SESSION['dropDownItems'] = array(NULL);
+                                    $all_files = glob("upload/*.*");
+                                    for ($i=0; $i<count($all_files); $i++)
+                                    {
+                                        $image_name = $all_files[$i];
+                                        $supported_format = array('jpg', 'png', 'bmp', 'svg');
+                                        $ext = strtolower(pathinfo($image_name, PATHINFO_EXTENSION));
+                                        if (in_array($ext, $supported_format))
+                                        {
+                                            //echo '<img src="'.$image_name .'" alt="'.$image_name.'" />'."<br /><br />";
+                                            print_r('<option value="'.$i.'">'.$image_name.'</option>');
+                                            $_SESSION['dropDownItems'][$i]['filePath'] = $image_name;
+                                        }        
+                                    }
+                                    $_SESSION['newFile'] === false;
+                                }
+                            ?>        
+                        </select>
+                    </div> 
+                </div>    
+            </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="col">
+                    <h6>Textmark</h6>
+                        <input name="text" type="text" class="form-control" placeholder="Enter text (optional)">
+                    </div>
+                    <div class="col">
+                    <h6>Shapes</h6>
+                        <select name="inputShape" class="form-control">
+                            <option selected>Add shape (optional)</option>
+                            <option value="rectangle">rectangle</option>
+                            <option value="circle">circle</option>
+                        </select>
                     </div>
                 </div>
+                <br>
+                <h6>Alignment</h6>
+                <div class="form-row">
+                    <div class="col">
+                        <select name="inputLocation" class="form-control">
+                            <option value="middle">middle</option>
+                            <option value="top-left">top left</option>
+                            <option value="bottom-right">bottom right</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" type="submit" name="submit" id="download">Do the Image Magick</button>
+                    </div>
+                </div>
+            </div>
             </form>
         </div>
 
         <!-- DOWNLOAD -->
-        <div class="container"> 
+        <div class="container p-4 mb-2 bg-light  text-dark"> 
             <form action="download.php" method="post">
-                <h6>Download</h6>
+                <h4>Download</h4>
                 <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                        <h6>Horizontal Resolution</h6>
+                            <input name="horizontal_res" type="number" class="form-control" placeholder="Enter horizontal resolution X. (optional)"
+                                   min="0" max="2160" pattern="[0-9]{0,4}">
+                        </div>
+                        
+                        <div class="col">
+                        <h6>Vertical Resolution</h6>
+                            <input name="vertical_res" type="number" class="form-control" placeholder="Enter vertical resolution Y. (optional)"
+                                   min="0" max="4096" pattern="[0-9]{0,4}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                <h6>File format</h6>
                     <div class="form-row">
                         <div class="col">
                             <select id="fileFormat" name="fileFormat" class="form-control">
@@ -143,8 +166,8 @@
             </form>
         </div>
 
-        <div class="container"> 
-        <h6>Preview</h6>
+        <div class="container p-4 mb-2 bg-light  text-dark"> 
+        <h4>Preview</h4>
          <?php
                 if(isset($_SESSION['preview_pic']) && is_file($_SESSION['preview_pic']))
                     echo '<a href="'.$_SESSION['preview_pic'].'"><img src="'.$_SESSION['preview_pic'].'" alt="preview" class="img-thumbnail"></a>';      
