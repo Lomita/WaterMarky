@@ -136,7 +136,7 @@
                         <div class="col">
                         <h6>Horizontal Resolution</h6>
                             <input name="horizontal_res" type="number" class="form-control" placeholder="Enter horizontal resolution X. (optional)"
-                                   min="0" max="2160" pattern="[0-9]{0,4}">
+                                   min="0" max="4096" pattern="[0-9]{0,4}">
                         </div>
                         
                         <div class="col">
