@@ -37,12 +37,12 @@
 
         <!-- FILESELECTION -->
         <div class="container p-4 mb-2 bg-light  text-dark">
-        <h4>Picture Settings</h4>
+        <h4>Picture & Watermark</h4>
             <form action="enchant_pictures.php" method="post">
             <div class="form-group">
                 <div class="form-row">
                     <div class="col">
-                        <h6>Picture</h6>
+                        <h6>Canvas</h6>
                         <select class="custom-select" id="picDropDown" name="picDropDown">
                             <?php               
                                 if($_SESSION['newFile'] === true)
@@ -67,7 +67,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <h6>Watermark</h6>
+                        <h6>Picmark</h6>
                         <select class="custom-select" id="waterMarkDropDown" name="waterMarkDropDown">
                             <?php               
                                 if($_SESSION['newFile'] === true)
@@ -101,7 +101,7 @@
                         <input name="text" type="text" class="form-control" placeholder="Enter text (optional)">
                     </div>
                     <div class="col">
-                    <h6>Shapes</h6>
+                    <h6>Shapemark</h6>
                         <select name="inputShape" class="form-control">
                             <option selected>Add shape (optional)</option>
                             <option value="rectangle">rectangle</option>
@@ -110,13 +110,20 @@
                     </div>
                 </div>
                 <br>
-                <h6>Alignment</h6>
+                <h6>Mark Alignement</h6>
                 <div class="form-row">
                     <div class="col">
-                        <select name="inputLocation" class="form-control">
-                            <option value="middle">middle</option>
-                            <option value="top-left">top left</option>
-                            <option value="bottom-right">bottom right</option>
+                        <select name="vertical_pos" class="form-control">
+                            <option value="top">Top</option>
+                            <option value="middle">Middle</option>
+                            <option value="bottom">Bottom</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select name="horizontal_pos" class="form-control">
+                            <option value="right">Right</option>
+                            <option value="middle">Middle</option>
+                            <option value="left">Left</option>
                         </select>
                     </div>
                     <div class="col">

@@ -51,34 +51,45 @@
         // Check if a location was selected
         // Check which location was chosen
         // Calculate the position
-        if (isset($_POST['inputLocation'])) {
-            switch ($_POST['inputLocation']) {
-
-                case 'top-left':
-                    // top left
-                    $x = 0;
+        
+        //default top left
+        $x = 0;
+        $y = 0;
+        
+        if (isset($_POST['vertical_pos']) && isset($_POST['horizontal_pos'])) 
+        {
+            switch ($_POST['vertical_pos']) 
+            {
+                case 'top':
+                    $x = ($img_Width - $watermark_Width) / 2;
                     $y = 0;
                 break;
 
-                case 'bottom-right':
-                    // bottom right
-                    $x = ($img_Width - $watermark_Width);
-                    $y = ($img_Height - $watermark_Height);
-                break;
-
-                default:
-                    // middle
+                case 'middle':
                     $x = ($img_Width - $watermark_Width) / 2;
                     $y = ($img_Height - $watermark_Height) / 2;
-                    
+                break;
+
+                case 'bottom':
+                    $x = ($img_Width - $watermark_Width) / 2;
+                    $y = ($img_Height - $watermark_Height);
                 break;
             }
-        } else {
-            popMsg("no location has been set, therefore default location will be applied");
-            // middle
-            $x = ($img_Width - $watermark_Width) / 2;
-            $y = ($img_Height - $watermark_Height) / 2;
-        }
+
+            switch ($_POST['horizontal_pos']) 
+            {
+                case 'left':
+                    $x -= ($img_Width + $watermark_Width) / 2;
+                break;
+
+                case 'right':
+                    $x += ($img_Width + $watermark_Width) / 2 / 2;
+                break;
+
+                case 'middle':
+                    break;
+            }
+        } 
 
         //create new draw object
         $draw = new ImagickDraw();
