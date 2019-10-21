@@ -32,10 +32,6 @@
             $filepath = getcwd(). "/enchanted_pics/download_pic." . $image->getImageFormat();
         }
 
-        $filepath="C:/xampp/htdocs/WaterMarky/enchanted_pics/download_pic.svg";
-        $nam =basename($filepath);
-
-
         // Process download
         if(file_exists($filepath)) 
         {
@@ -53,12 +49,12 @@
             header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
             header('Cache-Control: private',false);
             header('Content-Type: '.$mime);
-            header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
+            header('Content-Disposition: attachment; filename="'.basename($filepath).'');
             header('Content-Transfer-Encoding: binary');
             header('Content-Length: '.filesize($filepath));    // provide file size
-            //flush(); // Flush system output buffer
+            flush(); // Flush system output buffer
             readfile($filepath);
-            return popMsg("Successfully enchanted picture");
+            return popMsg("Successfully downloaded");
         }
         return popMsg("Something went wrong :(");
 	}
