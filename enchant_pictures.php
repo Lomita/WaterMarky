@@ -79,16 +79,16 @@
             switch ($_POST['horizontal_pos']) 
             {
                 case 'left':
-                    $x -= ($img_Width + $watermark_Width) / 2;
+                    $x -= ($img_Width - $watermark_Width) / 2;
                 break;
 
                 case 'right':
-                    $x += ($img_Width + $watermark_Width) / 2;
+                    $x += ($img_Width - $watermark_Width) / 2;
                 break;
-
-                case 'middle':
-                    break;
             }
+
+            if($x < 0 ? $x = 0: $x = $x); 
+            if($y < 0 ? $y = 0: $y = $y);
         } 
 
         //create new draw object
@@ -139,10 +139,6 @@
                     // Draw the circle
                     $draw->circle ($xCircle, $yCircle, $xCircle + $rCircle, $yCircle);
                     $image->drawImage($draw);
-                break;
-
-                default:
-                   //do nothing
                 break;
             }
         }
