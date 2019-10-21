@@ -122,13 +122,12 @@
 
         <!-- DOWNLOAD -->
         <div class="container"> 
-            <form action="enchant_pictures.php" method="post">
+            <form action="download.php" method="post">
                 <h6>Download</h6>
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col">
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose format...</option>
+                            <select id="fileFormat" name="fileFormat" class="form-control">
                                 <option>jpg</option>
                                 <option>png</option>
                                 <option>bmp</option>
@@ -151,23 +150,6 @@
                     echo '<a href="'.$_SESSION['preview_pic'].'"><img src="'.$_SESSION['preview_pic'].'" alt="preview" class="img-thumbnail"></a>';      
                 else
                     echo '<img src="rsc/no_img.png" alt="preview" class="img-thumbnail">';     
-        
-                //DEBUG :3
-                //echo '<pre>';
-                //print_r($_SESSION['preview_pic']);
-                //echo '</pre>';
-
-                //https://www.tutorialrepublic.com/php-tutorial/php-file-download.php
-                /* Array containing sample image file names
-                $images = array("kites.jpg", "balloons.jpg");
-                
-                 Loop through array to create image gallery
-                foreach($images as $image){
-                    echo '<div class="img-box">';
-                        echo '<img src="images/' . $image . '" width="200" alt="' .  pathinfo($image, PATHINFO_FILENAME) .'">';
-                        echo '<p><a href="download.php?file=' . urlencode($image) . '">Download</a></p>';
-                    echo '</div>';
-                }*/
             ?>
             </div>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
