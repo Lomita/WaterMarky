@@ -89,22 +89,22 @@
                         ?>        
                     </select>
                 </div> 
-                <h6>Options</h6>
-                <div class="form-group">
+                
+                <form action="#" method="post">
                     <div class="form-row">
                         <div class="col">
-                            <select id="inputLocation" name="inputLocation" class="form-control">
-                                <option selected>Choose location...</option>
-                                <option value="middle">middle</option>
-                                <option value="top-left">top left</option>
-                                <option value="bottom-right">bottom right</option>
-                            </select>
-                        </div>  
-                        <div class="col">
+                            <select name="inputLocation" class="form-control">
+						        <option value="middle">middle</option>
+						        <option value="top-left">top left</option>
+						        <option value="bottom-right">bottom right</option>
+					        </select>
                         </div>
-                    </div> 
-                </div> 
-            </form>  
+                        <div class="col">
+					        <input class="btn btn-primary" type="submit" name="submit" value="Vorschau" />
+				        </div>
+                    </div>
+                </form>
+            </form>   
         </div>
 
         <!-- DOWNLOAD -->

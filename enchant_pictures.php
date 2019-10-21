@@ -3,6 +3,7 @@
     //debug
     //echo '<pre>';
     //print_r($_POST);
+	//print_r($_SESSION);
     //echo '</pre>';
 
     /** sends a notification message and redirects to WaterMarky.php
@@ -45,13 +46,13 @@
             $watermark_Height = $watermark->getImageHeight();
         }
         
+        //echo "You have selected :" .$_POST['inputLocation'];  // Displaying Selected Value
+
         // Check if a location was selected
         // Check which location was chosen
         // Calculate the position
-        echo $_SESSION['location'];
-
-        if (isset($_SESSION['location'])) {
-            switch ($_SESSION['location']) {
+        if (isset($_POST['inputLocation'])) {
+            switch ($_POST['inputLocation']) {
 
                 case 'top-left':
                     // top left
@@ -61,8 +62,8 @@
 
                 case 'bottom-right':
                     // bottom right
-                    $x = $img_Width - $watermark_Width;
-                    $y = $img_Height - $watermark_Height;//not yet correct position
+                    $x = ($img_Width - $watermark_Width);
+                    $y = ($img_Height - $watermark_Height);
                 break;
 
                 default:
@@ -73,7 +74,7 @@
                 break;
             }
         } else {
-           // popMsg("no location has been set, therefore default location will be applied");
+            popMsg("no location has been set, therefore default location will be applied");
             // middle
             $x = ($img_Width - $watermark_Width) / 2;
             $y = ($img_Height - $watermark_Height) / 2;
@@ -86,6 +87,6 @@
         $image->writeImage(getcwd(). "/enchanted_pics/pic_watermark." . $image->getImageFormat()); 
         $_SESSION['preview_pic'] = "enchanted_pics/pic_watermark." . $image->getImageFormat();
 
-        //return popMsg("Successfully enchanted picture");
+        return popMsg("Successfully enchanted picture");
     }
 ?>
