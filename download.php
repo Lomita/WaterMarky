@@ -1,5 +1,9 @@
 <?php
     session_start();
+    //echo '<pre>';
+    //print_r($_POST);
+	//print_r($_SESSION);
+    //echo '</pre>';
 
     /** sends a notification message and redirects to WaterMarky.php
      * @param msg message to confirm 
@@ -25,13 +29,20 @@
             $y_res = 200;
             
             //custom resolution
-            if(empty(isset($_POST['horizontal_res'])) ? $x_res = $_POST['horizontal_res'] : $x_res = $image->getImageHeight());
-            if(empty(isset($_POST['vertical_res'])) ? $y_res = $_POST['vertical_res'] : $y_res = $image->getImageWidth());
-        
-            $image->resizeImage($y_res, $x_res, Imagick::FILTER_LANCZOS, 0.5);
-    
+            if(isset($_POST['horizontal_res']) && !empty($_POST['horizontal_res'])) 
+                $x_res = $_POST['horizontal_res'];
+            else
+                $x_res = $image->getImageWidth();
+            
+            if(isset($_POST['vertical_res']) && !empty($_POST['vertical_res']))
+                $y_res = $_POST['vertical_res'];
+            else
+                $y_res = $image->getImageHeight();
+
+            $image->resizeImage($x_res, $y_res, Imagick::FILTER_LANCZOS, 0.5);
+
             //custom format
-            if(empty(isset($_POST['fileFormat'])) ? $fileFormat = $_POST['fileFormat'] : $fileFormat = $image->getImageFormat());
+            if(!empty(isset($_POST['fileFormat'])) ? $fileFormat = $_POST['fileFormat'] : $fileFormat = $image->getImageFormat());
 
             $image->setImageFormat($fileFormat);
             
@@ -65,9 +76,7 @@
                 return popMsg("Successfully downloaded");
             }
         }
-
         return popMsg("Im sorrry! I just lost your Picture! :(");
     }
-    
     return popMsg("You have to create your picture first before you can download it! \\nPress Do The Image Magick! ;)");
 ?>
