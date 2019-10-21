@@ -127,7 +127,7 @@
                         </select>
                     </div>
                     <div class="col">
-                        <button class="btn btn-primary" type="submit" name="submit" id="download">Do the Image Magick</button>
+                        <button class="btn btn-primary" type="submit" name="submit" id="magick">Do the Image Magick</button>
                     </div>
                 </div>
             </div>
