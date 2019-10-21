@@ -1,4 +1,3 @@
-
 <?php
     session_start();
 
@@ -40,10 +39,11 @@
                 case 'pdf': $mime = 'application/pdf'; break;
                 case 'svg': $mime = 'image/svg+xml'; break;
                 case 'bmp': $mime = 'image/bmp'; break;
-                case 'jpg': $mime = 'image/jpg'; break;
+                case 'jpg': $mime = 'image/jpeg'; break;
                 case 'png': $mime = 'image/png'; break;
                 default: $mime = 'application/force-download';
             }
+            
             header('Pragma: public');   // required
             header('Expires: 0');       // no cache
             header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
