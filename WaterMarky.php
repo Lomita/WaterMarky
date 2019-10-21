@@ -91,6 +91,7 @@
                 </div> 
                 <div class="form-group">
                 <h6>Options</h6>
+                    <input name="text" type="text" class="form-control" placeholder="Enter text (optional)"><br>
                     <div class="form-row">
                         <div class="col">
                             <select name="inputLocation" class="form-control">
@@ -100,7 +101,7 @@
 					        </select>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary" type="submit" name="submit" id="download">Do The Image Magic</button>
+                            <button class="btn btn-primary" type="submit" name="submit" id="download">Preview</button>
                         </div>
                     </div>
                 </div>
