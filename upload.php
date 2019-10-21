@@ -23,7 +23,7 @@
         //check if file extension is allowed
         $allowed = array('jpg', 'png', 'bmp', 'svg');
         if(!in_array($fileExt, $allowed))
-            return popMsg("You cannot upload files of type ".$fileExt + "Files must be of one of the following types .jpg/.png/.bmp/.svg"); 
+            return popMsg("Files must be of one of the following types .jpg/.png/.bmp/.svg You cannot upload files of type ".$fileExt); 
 
         //checkk if an error occured
         if($file['error'] !== 0)
