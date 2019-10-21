@@ -166,6 +166,7 @@
             </form>
         </div>
 
+        <!-- PREVIEW -->
         <div class="container p-4 mb-2 bg-light text-dark"> 
         <h4>Preview</h4>
          <?php

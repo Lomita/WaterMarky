@@ -25,13 +25,13 @@
             $y_res = 200;
             
             //custom resolution
-            if(isset($_POST['horizontal_res']) ? $x_res = $_POST['horizontal_res'] : $x_res = $image->getImageHeight());
-            if(isset($_POST['vertical_res']) ? $y_res = $_POST['vertical_res'] : $y_res = $image->getImageWidth());
+            if(empty(isset($_POST['horizontal_res'])) ? $x_res = $_POST['horizontal_res'] : $x_res = $image->getImageHeight());
+            if(empty(isset($_POST['vertical_res'])) ? $y_res = $_POST['vertical_res'] : $y_res = $image->getImageWidth());
         
-            $image->resizeImage($x_res, $y_res, Imagick::FILTER_LANCZOS, 0.5);
+            $image->resizeImage($y_res, $x_res, Imagick::FILTER_LANCZOS, 0.5);
     
             //custom format
-            if(isset($_POST['fileFormat']) ? $fileFormat = $_POST['fileFormat'] : $fileFormat = $image->getImageFormat());
+            if(empty(isset($_POST['fileFormat'])) ? $fileFormat = $_POST['fileFormat'] : $fileFormat = $image->getImageFormat());
 
             $image->setImageFormat($fileFormat);
             
@@ -66,6 +66,8 @@
             }
         }
 
-        return popMsg("Something went wrong :(");
-	}
+        return popMsg("Im sorrry! I just lost your Picture! :(");
+    }
+    
+    return popMsg("You have to create your picture first before you can download it! \\nPress Do The Image Magick! ;)");
 ?>
