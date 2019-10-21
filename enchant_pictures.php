@@ -17,7 +17,7 @@
                 </script>');
     }
 
-    if(isset($_SESSION['dropDownItems'][$_POST['picDropDown']]['filePath']) && 
+    if(isset($_POST['picDropDown']) && isset($_SESSION['dropDownItems'][$_POST['picDropDown']]['filePath']) && 
              $_SESSION['dropDownItems'][$_POST['waterMarkDropDown']]['filePath'])
     {
         // Open the image to draw a watermark
@@ -145,4 +145,6 @@
 
         return popMsg("Successfully enchanted picture");
     }
+
+    return popMsg("You have to upload some Pictures first by clicking Choose file and Upload :(");
 ?>
