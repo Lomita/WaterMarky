@@ -99,30 +99,39 @@
             $image->annotateImage($draw, 0, $yText, 0, $_POST['text']);
         }
 
+
+        //echo "You have chosen:" .$_POST['inputShape'];  // Displaying Selected Value
+
         // Check if a shape was added
         // Draw shape
         if (isset($_POST['inputShape'])) {
             switch ($_POST['inputShape']) {
+                
                 case 'rectangle':
                     // rectangle properties
-                    $draw->setFillColor('wheat');
-                    $draw->setStrokeColor( new ImagickPixel( 'green' ) );
-                    $x1Rect = $img_Width - 50;
-                    $y1Rect = $img_Height - 50;
+                    $draw->setFillColor('yellow');
+                    $draw->setStrokeColor( new ImagickPixel( 'red' ) );
+                    $x1Rect = ($watermark_Width * 0.25) + $x;
+                    $y1Rect = ($watermark_Height * 0.015) + $y;
                     // Draw the rectangle
-                    $draw->rectangle( $x1Rect,  $y1Rect,  $img_Width, $img_Height);
+                    $draw->rectangle( $x1Rect,  $y1Rect,  $x1Rect + 100, $y1Rect + 100);
+                    $image->drawImage($draw);
                 break;
 
                 case 'circle':
                     // circle properties
-                   
+                    $draw->setFillColor('yellow');
+                    $draw->setStrokeColor( new ImagickPixel( 'red' ) );
+                    $xCircle = ($watermark_Width / 2) + $x;
+                    $yCircle = ($watermark_Height / 2) + $y;
+                    $rCircle = 100;
                     // Draw the circle
-                    
+                    $draw->circle ($xCircle, $yCircle, $xCircle + $rCircle, $yCircle);
+                    $image->drawImage($draw);
                 break;
 
                 default:
                    //do nothing
-                    
                 break;
             }
         }

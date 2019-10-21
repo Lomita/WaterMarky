@@ -113,7 +113,7 @@
 					        </select>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary" type="submit" name="submit" id="download">Preview</button>
+                            <button class="btn btn-primary" type="submit" name="submit" id="download">Do the Image Magick</button>
                         </div>
                     </div>
                 </div>
