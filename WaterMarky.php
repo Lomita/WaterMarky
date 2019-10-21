@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang=CH>
     <?php
         session_start();
         //phpinfo();
@@ -24,19 +24,19 @@
         </div>
         
         <!-- UPLOAD -->
-        <div class="container" name="upload">
+        <div class="container">
         <h6>Upload pictures</h6>
             <form action="upload.php" method="post" enctype="multipart/form-data">
                 <div class="input-group mb-3">
                     <input type="file" name="file" id="inputGroupFile03">
                     <div class="col"></div>
-                    <button class="btn btn-primary" type="submit" name="submit" id="inputGroupFileAddon03">Upload</button>
+                    <button class="btn btn-primary" type="submit" name="submit" id="upload">Upload</button>
                 </div>
             </form>
         </div>
 
         <!-- FILESELECTION -->
-        <div class="container" name="FileSelection">
+        <div class="container">
             <form action="enchant_pictures.php" method="post">
                 <div class="form-group">
                     <h6>Choose picture</h6>
@@ -107,33 +107,37 @@
             </form>   
         </div>
 
-        <div class="container" id="download" name="download"> 
-            <form>
-                <div class="form-row">
-                    <div class="col">
-                        <select id="inputState" class="form-control">
-                            <option selected>Choose format...</option>
-                            <option>jpg</option>
-                            <option>png</option>
-                            <option>bmp</option>
-                            <option>svg</option>
-                            <option>pdf</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-primary" type="submit" name="submit" id="inputGroupFileAddon03">Do The Image Magic</button>
+        <!-- DOWNLOAD -->
+        <div class="container"> 
+            <form action="enchant_pictures.php" method="post">
+                <h6>Download</h6>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col">
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose format...</option>
+                                <option>jpg</option>
+                                <option>png</option>
+                                <option>bmp</option>
+                                <option>svg</option>
+                                <option>pdf</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary" type="submit" name="submit" id="download">Do The Image Magic</button>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
 
-        <div class="container" id="preview" name="preview"> 
+        <div class="container"> 
         <h6>Preview</h6>
          <?php
                 if(isset($_SESSION['preview_pic']) && is_file($_SESSION['preview_pic']))
-                    echo '<a href="'.$_SESSION['preview_pic'].'""><img src="'.$_SESSION['preview_pic'].'" alt="" class="img-thumbnail">';      
+                    echo '<a href="'.$_SESSION['preview_pic'].'"><img src="'.$_SESSION['preview_pic'].'" alt="preview" class="img-thumbnail"></a>';      
                 else
-                    echo '<img src="rsc/no_img.png" alt="" class="img-thumbnail">';     
+                    echo '<img src="rsc/no_img.png" alt="preview" class="img-thumbnail">';     
         
                 //DEBUG :3
                 //echo '<pre>';
@@ -152,7 +156,7 @@
                     echo '</div>';
                 }*/
             ?>
-        </div>
+            </div>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	</body>
 </html>

@@ -74,7 +74,7 @@
                 break;
             }
         } else {
-            popMsg("no location has been set, therefore default location will be applied");
+           // popMsg("no location has been set, therefore default location will be applied");
             // middle
             $x = ($img_Width - $watermark_Width) / 2;
             $y = ($img_Height - $watermark_Height) / 2;
@@ -87,6 +87,6 @@
         $image->writeImage(getcwd(). "/enchanted_pics/pic_watermark." . $image->getImageFormat()); 
         $_SESSION['preview_pic'] = "enchanted_pics/pic_watermark." . $image->getImageFormat();
 
-        return popMsg("Successfully enchanted picture");
+        //return popMsg("Successfully enchanted picture");
     }
 ?>
