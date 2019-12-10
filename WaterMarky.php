@@ -1,30 +1,59 @@
+<?php
+    require 'dataBaseConnection.php';
+    session_start();
+
+    //phpinfo();
+    if(!isset($_SESSION['dropDownItems']))
+    $_SESSION['dropDownItems'] = array (NULL);
+
+    //true to show already uploaded images ;)
+    if(!isset($_SESSION['newFile']))
+    $_SESSION['newFile'] = true;
+?>
+
 <!DOCTYPE html>
 <html lang=CH>
-    <?php
-        session_start();
-        //phpinfo();
-        if(!isset($_SESSION['dropDownItems']))
-            $_SESSION['dropDownItems'] = array (NULL);
-
-        //true to show already uploaded images ;)
-        if(!isset($_SESSION['newFile']))
-            $_SESSION['newFile'] = true;
-    ?>
 	<head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>WaterMarky</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	</head>
-	<body>
-		<div class="container p-4 mb-2 bg-light  text-dark">
-			<header>
-				<h1>WaterMarky v1.0</h1>
-			</header>
+	<body> 
+    <div class="container p-4 mb-2 bg-dark  text-light"> 
+        <nav class="navbar navbar-expand-lg navbar-white bg-light">
+            <a class="navbar-brand align-middle text-dark" href="WaterMarky.php">
+                <img src="rsc/wizard-nav-bar.svg" width="100" height="100" class="d-inline-block align-left">
+                <h1 class="d-inline-block align-left">WaterMarky v2.0</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto ">
+                        <?php
+                        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
+                            echo '<li class="nav-item active ">
+                                <a class="nav-link align-middle text-dark" >Logged in as '.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
+                            </li>   
+                            <li class="nav-item dropdown">
+                                <a class="nav-link align-right text-dark" href="logout.php">Log out</a>
+                            </li>';
+                        else
+                            echo '<li class="nav-item active">
+                                    <a class="nav-link align-right text-dark" align="right" href="login.php"><h6>Login</h6> <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link align-right text-dark" href="register.php"><h6>Register</h6> <span class="sr-only">(current)</span></a>
+                                </li>';
+                        ?>
+                    </ul>    
+                </div>
+            </nav>
         </div>
         
         <!-- UPLOAD -->
-        <div class="container p-4 mb-2 bg-light  text-dark">
+        <div class="container p-4 mb-2 bg-dark  text-light">
         <h4>Upload pictures</h4>
             <form action="upload.php" method="post" enctype="multipart/form-data">
                 <div class="input-group mb-3">
@@ -36,7 +65,7 @@
         </div>
 
         <!-- FILESELECTION -->
-        <div class="container p-4 mb-2 bg-light  text-dark">
+        <div class="container p-4 mb-2 bg-dark  text-light">
         <h4>Picture & Watermark</h4>
             <form action="enchant_pictures.php" method="post">
             <div class="form-group">
@@ -135,7 +164,7 @@
         </div>
 
         <!-- DOWNLOAD -->
-        <div class="container p-4 mb-2 bg-light  text-dark"> 
+        <div class="container p-4 mb-2 bg-dark  text-light"> 
             <form action="download.php" method="post">
                 <h4>Download</h4>
                 <div class="form-group">
@@ -174,7 +203,7 @@
         </div>
 
         <!-- PREVIEW -->
-        <div class="container p-4 mb-2 bg-light text-dark"> 
+        <div class="container p-4 mb-2 bg-dark text-light"> 
         <h4>Preview</h4>
          <?php
                 if(isset($_SESSION['preview_pic']) && is_file($_SESSION['preview_pic']))
