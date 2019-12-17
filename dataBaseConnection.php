@@ -2,12 +2,12 @@
     $host = 'localhost';
     $username = 'root';
     $password = '';
-    $database = 'adressbuch_db';
+    $database = 'watermarky_db';
 
-    // mit Datenbank verbinden
+    // connect with database
     $mysqli = new mysqli($host, $username, $password, $database);
 
-    // fehlermeldung, falls verbindung fehl schlägt.
+    // error msg connection error
     if ($mysqli->connect_error) 
     {
         die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
