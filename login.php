@@ -91,10 +91,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 	<div class="container p-4 mb-2 bg-dark  text-light"> 
 		<h1>Login</h1>
 		<p>
-			Bitte melden Sie sich mit Benutzernamen und Passwort an.
+			Please log in using you're username and password.
 		</p>
 		<?php
-			// fehlermeldung oder nachricht ausgeben
+			// output error or success message
 			if(!empty($message))
 				echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
 			else if(!empty($error))
