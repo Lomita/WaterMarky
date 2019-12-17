@@ -70,7 +70,7 @@
                             <a class="nav-link align-middle text-dark" href="WaterMarky.php" >'.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
                         </li>   
                         <li class="nav-item dropdown">
-                            <a class="nav-link align-right text-dark" href="logout.php" >Log out</a>
+                            <a class="nav-link align-right text-dark" href="sign_out.php" >Sign out</a>
                         </li>';
                     else
                         header("Location: WaterMarky.php");
@@ -158,29 +158,29 @@
             <form method="post" id="sub" >
                 
 
-                    <a>Nachname</a> 
+                    <a>Lastname</a> 
                     <input type="text" class="form-control"
                             id="lastname" disabled=true name="change_lastname" 
                             value="<?php echo $slastname;?>" 
                             aria-label="Kontaktinformation" aria-describedby="button-addon2"
                             maxlength="30"
                 required="true"><br />
-                    <a>Vorname</a>
+                    <a>Firstname</a>
                     <input type="text" class="form-control" id="firstname" disabled=true name="change_firstname" value="<?php echo $sfirstname?>" aria-label="Kontaktinformation" aria-describedby="button-addon2" maxlength="30"
                 required="true"><br />
                     <a>Mail</a>
                     <input type="text" class="form-control" id="email" disabled=true name="search_mail" value="<?php echo $semail?>" aria-label="Kontaktinformation"maxlength="100"
                 required="true" aria-describedby="button-addon2"><br />
-                    <a>Passwort</a>
+                    <a>Password</a>
                     <input type="password" class="form-control" id="password" disabled=true name="search_text" value="<?php echo $spassword?>" aria-label="Kontaktinformation" aria-describedby="button-addon2" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                 title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
                 required="true"><br />
 
-                    <input type="submit" class="btn btn-dark" name="Suchen" visible=false value="Daten speichern" id="button-change"></button>
+                    <input type="submit" class="btn btn-dark" name="Suchen" visible=false value="Save" id="button-change"></button>
 
                     <!--<div class="input-group-append">-->
-                        <!--<input type="submit" class="btn btn-dark" name="Suchen" value="Daten ändern" id="button-change"></button>-->
-                        <button type="button" id="btn_change"class="btn btn-dark" >Daten ändern</button>
+                        <!--<input type="submit" class="btn btn-dark" name="Suchen" value="Edit" id="button-change"></button>-->
+                        <button type="button" id="btn_change"class="btn btn-dark" >Edit</button>
                     <!--</div>-->                    
             </form>
 
