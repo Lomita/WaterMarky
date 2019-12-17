@@ -76,14 +76,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $lastname = htmlspecialchars(trim($_POST['lastname']));
         $username = htmlspecialchars(trim($_POST['username']));
         $email = htmlspecialchars(trim($_POST['email']));
-        
+        $role_id = 1; //standard user
+
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO users (email, firstname, lastname, password,username)
-        VALUES (?,?,?,?,?); ";
+        $query = "INSERT INTO users (role_id, email, firstname, lastname, password,username)
+        VALUES (?,?,?,?,?,?); ";
 
         $stmt = $mysqli->prepare($query);
-        $stmt->bind_param('sssss', $email, $firstname,$lastname,$password,$username);		
+        $stmt->bind_param('isssss', $role_id, $email, $firstname,$lastname,$password,$username);		
         $stmt->execute();
 
         $result = $stmt->get_result();
