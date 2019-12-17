@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 07. Dez 2018 um 08:18
--- Server-Version: 10.1.37-MariaDB
--- PHP-Version: 7.2.12
+-- Erstellungszeit: 17. Dez 2019 um 16:09
+-- Server-Version: 10.1.39-MariaDB
+-- PHP-Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,33 +19,27 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `adressbuch_db`
+-- Datenbank: `watermarky_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `contacts`
+-- Tabellenstruktur für Tabelle `role`
 --
 
-CREATE TABLE `contacts` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `firstname` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `lastname` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
-  `phone` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `place` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `plz` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `role` (
+  `role_id` int(11) NOT NULL,
+  `role_name` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Daten für Tabelle `contacts`
+-- Daten für Tabelle `role`
 --
 
-INSERT INTO `contacts` (`id`, `firstname`, `lastname`, `email`, `description`, `phone`, `place`, `plz`, `date`) VALUES
-(1, 'Silian', 'Barlogis', 's.barlogis@relux.com', 'Ich esse gerne Kuchen.', '079 955 88 92', 'Münchenstein', '4142', '2018-12-06');
+INSERT INTO `role` (`role_id`, `role_name`) VALUES
+(1, 'User'),
+(2, 'Magick User');
 
 -- --------------------------------------------------------
 
@@ -55,6 +49,7 @@ INSERT INTO `contacts` (`id`, `firstname`, `lastname`, `email`, `description`, `
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` int(11) DEFAULT NULL,
   `firstname` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -63,38 +58,55 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
+-- Daten für Tabelle `users`
+--
+
+INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `username`, `password`, `email`) VALUES
+(1, NULL, 'Silian', 'Barlogis', 'Silian', '$2y$10$e3.UskeKfH6YYbXV8v6rcu.w.RXQnz1YOu/qQmaC.FqsQf8VV7v4i', 'silian.barlogis@gmail.com'),
+(2, 1, 'Miruku', 'Miru', 'Mirukaru', '$2y$10$nsVisMxt3kvaMg9q/N6TsugC.QJtUNdQGVTQRSKyFX1HsZ6eRd/7y', 'MiruMiru@miru.com');
+
+--
 -- Indizes der exportierten Tabellen
 --
 
 --
--- Indizes für die Tabelle `contacts`
+-- Indizes für die Tabelle `role`
 --
-ALTER TABLE `contacts`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`role_id`);
 
 --
 -- Indizes für die Tabelle `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
+  ADD KEY `role_id` (`role_id`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
 --
 
 --
--- AUTO_INCREMENT für Tabelle `contacts`
+-- AUTO_INCREMENT für Tabelle `role`
 --
-ALTER TABLE `contacts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `role`
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints der exportierten Tabellen
+--
+
+--
+-- Constraints der Tabelle `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
