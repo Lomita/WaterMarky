@@ -50,7 +50,7 @@
                                 }
                                 else
                                 {
-                                    $error = '  Benutzername oder Password falsch!';
+                                    $error = '  username or password wrong!';
                                 }
                             }
                         }
@@ -63,18 +63,18 @@
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="sr-only">(current)</span></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="adressbuch.php">Home</a>
-                                    <a class="dropdown-item" href="logout.php">Abmelden</a>
+                                    <a class="dropdown-item" href="logout.php">Log out</a>
                                 </div>
                                 </li>
                                 <li class="nav-item active ">
-                                    <a class="nav-link align-middle" >Angemeldet als '.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link align-middle" >Logged in as '.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
                                 </li>';
                             else{
                                 echo '<li class="nav-item active">
-                                        <a class="nav-link" align="right" href="login.php">Anmelden <span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" align="right" href="login.php">Login <span class="sr-only">(current)</span></a>
                                     </li>
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="register.php">Registrieren <span class="sr-only">(current)</span></a>
+                                        <a class="nav-link" href="register.php">Sign up <span class="sr-only">(current)</span></a>
                                     </li>';
                             }
 
@@ -89,38 +89,38 @@
                                         echo "</pre>";*/
                                         
                                         
-                                       // vorname vorhanden, mindestens 1 Zeichen und maximal 30 Zeichen lang
+                                       // firstname exists, at least 1 character and maximum 30 characters long
                                     if(!empty(trim($_POST['change_firstname'])) && strlen(trim($_POST['change_firstname'])) <= 30){
                                     $firstname = htmlspecialchars(trim($_POST['change_firstname']));
                                     }else {
-                                    $error .= "Geben Sie bitte einen korrekten Vornamen ein.<br />";}
+                                    $error .= "Please enter you're firstname.<br />";}
 
-                                // nachname vorhanden, mindestens 1 Zeichen und maximal 30 zeichen lang
+                                // lastname exists, at least 1 character and maximum 30 characters long
                                 if(!empty(trim($_POST['change_lastname'])) && strlen(trim($_POST['change_lastname'])) <= 30){
                                     $lastname = htmlspecialchars(trim($_POST['change_lastname']));
                                  } else {
-                                    $error .= "Geben Sie bitte einen korrekten Nachnamen ein.<br />";}
+                                    $error .= "Please enter you're lastname.<br />";}
 
-                                // emailadresse vorhanden, mindestens 1 Zeichen und maximal 100 zeichen lang
+                                // mailadress exists, at least 1 character and maximum 100 characters long
                                 /*if(!empty(trim($_POST['search_mail'])) && strlen(trim($_POST['search_mail'])) <= 100)
                                 {
                                     $email = htmlspecialchars(trim($_POST['search_mail']));
                                     if (filter_var($email, FILTER_VALIDATE_EMAIL) === false){
-                                        $error .= "Geben Sie bitte eine korrekte Email-Adresse ein<br />";
+                                        $error .= "Please enter you're mailadress.<br />";
                                 } 
                                 else {
-                                    $error .= "Geben Sie bitte eine korrekte Email-Adresse ein.<br />";
-                                }}*/// passwort vorhanden, mindestens 8 Zeichen
+                                    $error .= "Please enter a valid mailadress.<br />";
+                                }}*/// password exists, at least 8 characters
                                 if(isset($_POST['password']) && !empty(trim($_POST['password'])))
                                 {
                                     $password = trim($_POST['password']);
-                                    //entspricht das passwort unseren vorgaben? (minimal 8 Zeichen, Zahlen, Buchstaben, keine Zeilenumbrüche, mindestens ein Gross- und ein Kleinbuchstabe)
+                                    //does the password comply with the requirement? (minimum 8 characters, numbers, no breaks, minimum one upper and one lower case letter)
                                     if(!preg_match("/(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password))
                                     {
-                                        $error .= "Das Passwort entspricht nicht dem geforderten Format.<br />";
+                                        $error .= "The password does not meet the requirements.<br />";
                                     } 
                                     else{ 
-                                        $error .= "Geben Sie bitte einen korrekten Nachnamen ein.<br />";}
+                                        $error .= "Please enter a correct lastname.<br />";}
                                 }
                                 
                                 echo $error;
@@ -164,25 +164,25 @@
                         <input type="text" class="form-control"
                                 id="lastname" disabled=true name="change_lastname" 
                                 value="<?php echo $slastname;?>" 
-                                aria-label="Kontaktinformation" aria-describedby="button-addon2"
+                                aria-label="Contact info" aria-describedby="button-addon2"
                                 maxlength="30"
                   required="true"><br />
                         <a>Vorname</a>
-                        <input type="text" class="form-control" id="firstname" disabled=true name="change_firstname" value="<?php echo $sfirstname?>" aria-label="Kontaktinformation" aria-describedby="button-addon2" maxlength="30"
+                        <input type="text" class="form-control" id="firstname" disabled=true name="change_firstname" value="<?php echo $sfirstname?>" aria-label="Contact info" aria-describedby="button-addon2" maxlength="30"
                   required="true"><br />
                         <a>e-Mail</a>
-                        <input type="text" class="form-control" id="email" disabled=true name="search_mail" value="<?php echo $semail?>" aria-label="Kontaktinformation"maxlength="100"
+                        <input type="text" class="form-control" id="mail" disabled=true name="search_mail" value="<?php echo $semail?>" aria-label="Conact info"maxlength="100"
                   required="true" aria-describedby="button-addon2"><br />
                         <a>Passwort</a>
-                        <input type="password" class="form-control" id="password" disabled=true name="search_text" value="<?php echo $spassword?>" aria-label="Kontaktinformation" aria-describedby="button-addon2" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                  title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
+                        <input type="password" class="form-control" id="password" disabled=true name="search_text" value="<?php echo $spassword?>" aria-label="Contact info" aria-describedby="button-addon2" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                  title="at least one upper-, one lower-case letter, one number and a specialcharacter, minimum 8 characters long."
                   required="true"><br />
 
-                        <input type="submit" class="btn btn-dark" name="Suchen" visible=false value="Daten speichern" id="button-change"></button>
+                        <input type="submit" class="btn btn-dark" name="Search" visible=false value="Save" id="button-change"></button>
 
                         <!--<div class="input-group-append">-->
-                            <!--<input type="submit" class="btn btn-dark" name="Suchen" value="Daten ändern" id="button-change"></button>-->
-                            <button type="button" id="btn_change"class="btn btn-dark" >Daten ändern</button>
+                            <!--<input type="submit" class="btn btn-dark" name="Search" value="Edit" id="button-change"></button>-->
+                            <button type="button" id="btn_change"class="btn btn-dark" >Edit</button>
                         <!--</div>-->                    
                 </form>
                 

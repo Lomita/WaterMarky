@@ -2,65 +2,65 @@
 
 require 'dataBaseConnection.php';
 
-// Initialisierung
+// Init
   $error = $message =  '';
   $firstname = $lastname = $email = $username = '';
 
-// Wurden Daten mit "POST" gesendet?
+// did "POST" carry Data?
 if($_SERVER['REQUEST_METHOD'] == "POST"){
-    // Ausgabe des gesamten $_POST Arrays
+    // Output of entire $_POST Array
     echo "<pre>";
     print_r($_POST);
     echo "</pre>";
 
-    // vorname vorhanden, mindestens 1 Zeichen und maximal 30 Zeichen lang
+    // firstname exists, miniimum 1 character and maximum 30 characters long
     if(isset($_POST['firstname']) && !empty(trim($_POST['firstname'])) && strlen(trim($_POST['firstname'])) <= 30){
-      // Spezielle Zeichen Escapen > Script Injection verhindern
+      // escape special characters > stop script injection
       $firstname = htmlspecialchars(trim($_POST['firstname']));
     } else {
-      // Ausgabe Fehlermeldung
-      $error .= "Geben Sie bitte einen korrekten Vornamen ein.<br />";
+      // output error message
+      $error .= "Please enter a correct firstname.<br />";
     }
 
-    // nachname vorhanden, mindestens 1 Zeichen und maximal 30 zeichen lang
+    // lastname exists, miniimum 1 character and maximum 30 characters long
     if(isset($_POST['lastname']) && !empty(trim($_POST['lastname'])) && strlen(trim($_POST['lastname'])) <= 30){
-      // Spezielle Zeichen Escapen > Script Injection verhindern
+      // escape special characters > stop script injection
       $lastname = htmlspecialchars(trim($_POST['lastname']));
     } else {
-      // Ausgabe Fehlermeldung
-      $error .= "Geben Sie bitte einen korrekten Nachnamen ein.<br />";
+      // output error message
+      $error .= "Please enter a correct lastname.<br />";
     }
 
-    // emailadresse vorhanden, mindestens 1 Zeichen und maximal 100 zeichen lang
+    // mail exists, miniimum 1 character and maximum 100 characters long
     if(isset($_POST['email']) && !empty(trim($_POST['email'])) && strlen(trim($_POST['email'])) <= 100){
       $email = htmlspecialchars(trim($_POST['email']));
-      // korrekte emailadresse?
+      // mail correct?
       if (filter_var($email, FILTER_VALIDATE_EMAIL) === false){
-        $error .= "Geben Sie bitte eine korrekte Email-Adresse ein<br />";
+        $error .= "Please enter a correct mailadress.<br />";
       }
     } else {
-      // Ausgabe Fehlermeldung
-      $error .= "Geben Sie bitte eine korrekte Email-Adresse ein.<br />";
+      // output error message
+      $error .= "Please enter a valid mailadress.<br />";
     }
 
-    // benutzername vorhanden, mindestens 6 Zeichen und maximal 30 zeichen lang
+    // username exists, miniimum 6 character and maximum 30 characters long
     if(isset($_POST['username']) && !empty(trim($_POST['username'])) && strlen(trim($_POST['username'])) <= 30){
       $username = trim($_POST['username']);
-      // entspricht der benutzername unseren vogaben (minimal 6 Zeichen, Gross- und Kleinbuchstaben)
+      // does the username meet the requirements? (minimum 6 characters, upper- and lower-case letter)
       if(!preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}/", $username)){
-        $error .= "Der Benutzername entspricht nicht dem geforderten Format.<br />";
+        $error .= "The username is not in the correct format.<br />";
       }
     } else {
       // Ausgabe Fehlermeldung
-      $error .= "Geben Sie bitte einen korrekten Benutzernamen ein.<br />";
+      $error .= "Please enter a correct username.<br />";
     }
 
-    // passwort vorhanden, mindestens 8 Zeichen
+    // password exists, minimum 8 characters
     if(isset($_POST['password']) && !empty(trim($_POST['password']))){
       $password = trim($_POST['password']);
-      //entspricht das passwort unseren vorgaben? (minimal 8 Zeichen, Zahlen, Buchstaben, keine Zeilenumbrüche, mindestens ein Gross- und ein Kleinbuchstabe)
+      //does the password meet the requirements? (minimum 8 characters, numbers, no breaks, minimum one upper- and one lower-case letter)
       if(!preg_match("/(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)){
-        $error .= "Das Passwort entspricht nicht dem geforderten Format.<br />";
+        $error .= "The password does not meet the required format.<br />";
       }
     } else {
       // Ausgabe Fehlermeldung

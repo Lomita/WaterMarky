@@ -6,7 +6,7 @@ session_start();
 $error = '';
 $message = '';
 
-// Formular wurde gesendet und Besucher ist noch nicht angemeldet.
+// form was sent and visitor is not logged in.
 if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 	// username
 	if(!empty(trim($_POST['username']))){
