@@ -16,7 +16,7 @@
 </head>
     <body>
 
-    <!-- icon and titel -->
+    <!-- icon and title -->
     <div class="container bg-dark  text-light"> 
         <div class="container bg-light  text-dark"> 
             <a class="navbar-brand align-middle text-dark" href="WaterMarky.php">
@@ -163,20 +163,20 @@
                 <form method="post" id="sub" >
                     
 
-                        <a>Nachname</a> 
+                        <a>Lastname</a> 
                         <input type="text" class="form-control"
                                 id="lastname" disabled=true name="change_lastname" 
                                 value="<?php echo $slastname;?>" 
                                 aria-label="Contact info" aria-describedby="button-addon2"
                                 maxlength="30"
                   required="true"><br />
-                        <a>Vorname</a>
+                        <a>Firstname</a>
                         <input type="text" class="form-control" id="firstname" disabled=true name="change_firstname" value="<?php echo $sfirstname?>" aria-label="Contact info" aria-describedby="button-addon2" maxlength="30"
                   required="true"><br />
-                        <a>e-Mail</a>
+                        <a>Mail</a>
                         <input type="text" class="form-control" id="mail" disabled=true name="search_mail" value="<?php echo $semail?>" aria-label="Conact info"maxlength="100"
                   required="true" aria-describedby="button-addon2"><br />
-                        <a>Passwort</a>
+                        <a>Password</a>
                         <input type="password" class="form-control" id="password" disabled=true name="search_text" value="<?php echo $spassword?>" aria-label="Contact info" aria-describedby="button-addon2" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                   title="at least one upper-, one lower-case letter, one number and a specialcharacter, minimum 8 characters long."
                   required="true"><br />

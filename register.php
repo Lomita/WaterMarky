@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $error .= "The username is not in the correct format.<br />";
       }
     } else {
-      // Ausgabe Fehlermeldung
+      // output error message
       $error .= "Please enter a correct username.<br />";
     }
 
@@ -63,11 +63,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $error .= "The password does not meet the required format.<br />";
       }
     } else {
-      // Ausgabe Fehlermeldung
-      $error .= "Geben Sie bitte einen korrekten Nachnamen ein.<br />";
+      // output error message
+      $error .= "Please enter a correct lastname.<br />";
     }
 
-    // wenn kein Fehler vorhanden ist, schreiben der Daten in die Datenbank
+    // wirte data into Database if there are no errors
     if(empty($error))
     {
         $username = htmlspecialchars(trim($_POST['username']));
@@ -102,7 +102,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Registrierung</title>
+    <title>Sign in</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -118,12 +118,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   <body>
 
     <div class="container">
-      <h1>Registrierung</h1>
+      <h1>Sign in</h1>
       <p>
-        Bitte registrieren Sie sich, damit Sie diesen Dienst benutzen können.
+        Please sign in to use this service.
       </p>
       <?php
-        // Ausgabe der Fehlermeldungen
+        // output error message
         if(!empty($error)){
           echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
         } else if (!empty($message)){
@@ -133,52 +133,52 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
       <form action="" method="post">
         <!-- vorname -->
         <div class="form-group">
-          <label for="firstname">Vorname *</label>
+          <label for="firstname">Firstname *</label>
           <input type="text" name="firstname" class="form-control" id="firstname"
                   value="<?php echo $firstname ?>"
-                  placeholder="Geben Sie Ihren Vornamen an."
+                  placeholder="Enter you're firstname."
                   required="true">
         </div>
         <!-- nachname -->
         <div class="form-group">
-          <label for="lastname">Nachname *</label>
+          <label for="lastname">Lastname *</label>
           <input type="text" name="lastname" class="form-control" id="lastname"
                   value="<?php echo $lastname ?>"
-                  placeholder="Geben Sie Ihren Nachnamen an"
+                  placeholder="Enter you're lastname"
                   maxlength="30"
                   required="true">
         </div>
         <!-- email -->
         <div class="form-group">
-          <label for="email">Email *</label>
+          <label for="email">Mail *</label>
           <input type="email" name="email" class="form-control" id="email"
                   value="<?php echo $email ?>"
-                  placeholder="Geben Sie Ihre Email-Adresse an."
+                  placeholder="Enter you're mailadress."
                   maxlength="100"
                   required="true">
         </div>
         <!-- benutzername -->
         <div class="form-group">
-          <label for="username">Benutzername *</label>
+          <label for="username">Username *</label>
           <input type="text" name="username" class="form-control" id="username"
                   value="<?php echo $username ?>"
-                  placeholder="Gross- und Keinbuchstaben, min 6 Zeichen."
+                  placeholder="Upper- and lower-case letters, min 6 characters."
                   maxlength="30" required="true"
                   pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}"
-                  title="Gross- und Keinbuchstaben, min 6 Zeichen.">
+                  title="Upper- and lower-case letters, min 6 characters.">
         </div>
         <!-- password -->
         <div class="form-group">
           <label for="password">Password *</label>
           <input type="password" name="password" class="form-control" id="password"
-                  placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute"
+                  placeholder="Upper- and lower-case letters, numbers, specialcharacters, min. 8 characters"
                   pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                  title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
+                  title="minimum one Upper-, one lower-case letter, one number and one specialcharacter, minimum 8 characters long."
                   required="true">
         </div>
-        <button type="submit" name="button" value="submit" class="btn btn-info">Registrieren</button>
-        <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
-        <a class="btn btn-warning" data-toggle="collapse.show" href="WaterMarky.php" role="button" aria-expanded="false" aria-controls="collapseExample">Zurück</a>
+        <button type="submit" name="button" value="submit" class="btn btn-info">Sign up</>
+        <button type="reset" name="button" value="reset" class="btn btn-warning">Delete</button>
+        <a class="btn btn-warning" data-toggle="collapse.show" href="WaterMarky.php" role="button" aria-expanded="false" aria-controls="collapseExample">Back</a>
       </form>
     </div>
 

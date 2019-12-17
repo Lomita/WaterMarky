@@ -13,22 +13,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 
 		$username = trim($_POST['username']);
 		
-		// prüfung benutzername
+		// checking username
 		if(!preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}/", $username) || strlen($username) > 30){
-			$error .= "Der Benutzername entspricht nicht dem geforderten Format.<br />";
+			$error .= "The username does not meet the required format.<br />";
 		}
 	} else {
-		$error .= "Geben Sie bitte den Benutzername an.<br />";
+		$error .= "Please enter you're username.<br />";
 	}
 	// password
 	if(!empty(trim($_POST['password']))){
 		$password = trim($_POST['password']);
 		// passwort gültig?
 		if(!preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)){
-			$error .= "Das Passwort entspricht nicht dem geforderten Format.<br />";
+			$error .= "The password does not meet the required format.<br />";
 		}
 	} else {
-		$error .= "Geben Sie bitte das Passwort an.<br />";
+		$error .= "Please enter you're password.<br />";
 	}
 	
 	// kein fehler
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 		{
 			if(password_verify($password, $user['password']) && $user['username'] === $username)
 			{
-				$message = 'Sie wurden erfolgreich angemeldet!';
+				$message = 'You have been logged in successfully!';
 
 				session_regenerate_id();
 				
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 			}
 			else
 			{
-				$error = 'Benutzername oder Password falsch!';
+				$error = 'Username or password are wrong!';
 			}
 		}
 	}
@@ -84,10 +84,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 		<div class="container">
 			<h1>Login</h1>
 			<p>
-				Bitte melden Sie sich mit Benutzernamen und Passwort an.
+				Please log in using you're username and password.
 			</p>
 			<?php
-				// fehlermeldung oder nachricht ausgeben
+				// output error or success message
 				if(!empty($message)){
 					echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
 				} else if(!empty($error)){
@@ -96,26 +96,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 			?>
 			<form action="" method="POST">
 				<div class="form-group">
-				<label for="username">Benutzername *</label>
+				<label for="username">Username *</label>
 				<input type="text" name="username" class="form-control" id="username"
 						value=""
-						placeholder="Gross- und Keinbuchstaben, min 6 Zeichen."
+						placeholder="Upper- and lower-case letter, min 6 characters."
 						maxlength="30" required="true"
 						pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}"
-						title="Gross- und Keinbuchstaben, min 6 Zeichen.">
+						title="Upper- and lower-case letters, min 6 characters.">
 				</div>
 				<!-- password -->
 				<div class="form-group">
 					<label for="password">Password *</label>
 					<input type="password" name="password" class="form-control" id="password"
-							placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute"
+							placeholder="Upper- and lower-case letters, numbers, specialcharacters, min. 8 characters"
 							pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-							title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
+							title="minimum one Upper-, one lower-case letter, one number and one specialcharacter, minimum 8 characters long."
 							required="true">
 				</div>
-		  		<button type="submit" name="button" value="submit" class="btn btn-info">Anmelden</button>
-                <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
-                <a class="btn btn-warning" data-toggle="collapse.show" href="WaterMarky.php" role="button" aria-expanded="false" aria-controls="collapseExample">Zurück</a>
+		  		<button type="submit" name="button" value="submit" class="btn btn-info">Log in</button>
+                <button type="reset" name="button" value="reset" class="btn btn-warning">Delete</button>
+                <a class="btn btn-warning" data-toggle="collapse.show" href="WaterMarky.php" role="button" aria-expanded="false" aria-controls="collapseExample">Back</a>
 			</form>
 		</div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

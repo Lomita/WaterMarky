@@ -21,7 +21,7 @@
 	</head>
 	<body> 
 
-    <!-- icon and titel -->
+    <!-- icon and title -->
     <div class="container bg-dark  text-light"> 
     <div class="container bg-light  text-dark"> 
         <a class="navbar-brand align-middle text-dark" href="WaterMarky.php">
