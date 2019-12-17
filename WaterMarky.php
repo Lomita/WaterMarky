@@ -22,8 +22,8 @@
 	<body> 
 
     <!-- icon and title -->
-    <div class="container bg-dark  text-light"> 
-    <div class="container bg-light  text-dark"> 
+    <div class="container bg-dark text-light"> 
+        <div class="container bg-light  text-dark"> 
         <a class="navbar-brand align-middle text-dark" href="WaterMarky.php">
             <img src="rsc/wizard-nav-bar.svg" width="70" height="70" class="d-inline-block align-left">
             <h1 class="d-inline-block align-middle">WaterMarky v2.0</h1>
