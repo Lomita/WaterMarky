@@ -16,16 +16,24 @@
 	<head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>WaterMarky</title>
+		<title>WaterMarky | Home</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	</head>
 	<body> 
+
+    <!-- icon and titel -->
+    <div class="container bg-dark  text-light"> 
+    <div class="container bg-light  text-dark"> 
+        <a class="navbar-brand align-middle text-dark" href="WaterMarky.php">
+            <img src="rsc/wizard-nav-bar.svg" width="70" height="70" class="d-inline-block align-left">
+            <h1 class="d-inline-block align-middle">WaterMarky v2.0</h1>
+        </a>
+        </div>
+    </div>
+    
+    <!-- NAV BAR -->
     <div class="container p-4 mb-2 bg-dark  text-light"> 
         <nav class="navbar navbar-expand-lg navbar-white bg-light">
-            <a class="navbar-brand align-middle text-dark" href="WaterMarky.php">
-                <img src="rsc/wizard-nav-bar.svg" width="100" height="100" class="d-inline-block align-left">
-                <h1 class="d-inline-block align-left">WaterMarky v2.0</h1>
-            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -34,10 +42,10 @@
                         <?php
                         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
                             echo '<li class="nav-item active ">
-                                <a class="nav-link align-middle text-dark" >Logged in as '.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
+                                <a class="nav-link align-middle text-dark" href="user_info.php" >'.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
                             </li>   
                             <li class="nav-item dropdown">
-                                <a class="nav-link align-right text-dark" href="logout.php">Log out</a>
+                                <a class="nav-link align-right text-dark" href="logout.php" >Log out</a>
                             </li>';
                         else
                             echo '<li class="nav-item active">
