@@ -97,28 +97,27 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sign in</title>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-
-    <div class="container">
-      <h1>Sign in</h1>
+<html lang=CH>
+	<head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>WaterMarky | Sign up</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	</head>
+	<body> 
+    <body>
+		<!-- icon and titel -->
+		<div class="container bg-dark text-light"> 
+        <div class="container bg-light  text-dark"> 
+        <a class="navbar-brand align-middle text-dark" href="WaterMarky.php">
+            <img src="rsc/wizard-nav-bar.svg" width="70" height="70" class="d-inline-block align-left">
+            <h1 class="d-inline-block align-middle">WaterMarky v2.0</h1>
+        </a>
+        </div>
+    </div>
+    
+	<div class="container p-4 mb-2 bg-dark  text-light"> 
+      <h1>Sign up</h1>
       <p>
         Please sign in to use this service.
       </p>
@@ -176,9 +175,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                   title="minimum one Upper-, one lower-case letter, one number and one specialcharacter, minimum 8 characters long."
                   required="true">
         </div>
-        <button type="submit" name="button" value="submit" class="btn btn-info">Sign up</>
-        <button type="reset" name="button" value="reset" class="btn btn-warning">Delete</button>
-        <a class="btn btn-warning" data-toggle="collapse.show" href="WaterMarky.php" role="button" aria-expanded="false" aria-controls="collapseExample">Back</a>
+        <button type="submit" name="button" value="submit" class="btn btn-primary">Sign up</button>
+        <a class="btn btn-secondary" data-toggle="collapse.show" href="WaterMarky.php" role="button">Back</a>
       </form>
     </div>
 

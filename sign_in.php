@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 	<head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>WaterMarky | Login</title>
+		<title>WaterMarky | Sign in</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	</head>
 	<body> 
@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
     </div>
     
 	<div class="container p-4 mb-2 bg-dark  text-light"> 
-		<h1>Login</h1>
+		<h1>Sign in</h1>
 		<p>
 			Please log in using you're username and password.
 		</p>

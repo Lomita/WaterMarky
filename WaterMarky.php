@@ -45,14 +45,14 @@
                                 <a class="nav-link align-middle text-dark" href="user_info.php" >'.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
                             </li>   
                             <li class="nav-item dropdown">
-                                <a class="nav-link align-right text-dark" href="logout.php" >Log out</a>
+                                <a class="nav-link align-right text-dark" href="sign_out.php" >Sign out</a>
                             </li>';
                         else
                             echo '<li class="nav-item active">
-                                    <a class="nav-link align-right text-dark" align="right" href="login.php"><h6>Login</h6> <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link align-right text-dark" align="right" href="sign_in.php"><h6>Sign in</h6> <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link align-right text-dark" href="register.php"><h6>Register</h6> <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link align-right text-dark" href="sign_up.php"><h6>Sign up</h6> <span class="sr-only">(current)</span></a>
                                 </li>';
                         ?>
                     </ul>    
