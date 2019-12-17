@@ -5,28 +5,38 @@
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <title>Adressbuch Pro | Konto Übersicht</title>
-        </head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>WaterMarky | Profile</title>
+</head>
     <body>
-        <div class="container">  
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand align-middle" href="adressbuch.php">
-                <img src="../img/nav-bar-icon.svg" width="35" height="35" class="d-inline-block align-middle" alt=""> Adressbuch Pro</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+
+    <!-- icon and titel -->
+    <div class="container bg-dark  text-light"> 
+        <div class="container bg-light  text-dark"> 
+            <a class="navbar-brand align-middle text-dark" href="WaterMarky.php">
+                <img src="rsc/wizard-nav-bar.svg" width="70" height="70" class="d-inline-block align-left">
+                <h1 class="d-inline-block align-middle">WaterMarky v2.0</h1>
+            </a>
+        </div>
+    </div>
+
+    <!-- NAV BAR -->
+    <div class="container p-4 mb-2 bg-dark  text-light"> 
+        <nav class="navbar navbar-expand-lg navbar-white bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto ">
                     
                         <?php
-                        
+
                         if(empty($error))
                         {
 
@@ -55,28 +65,21 @@
                             }
                         }
                     
-                    
-                    
-                            //handle navigation items for user and guests
-                            if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
-                                echo '<li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="sr-only">(current)</span></a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="adressbuch.php">Home</a>
-                                    <a class="dropdown-item" href="logout.php">Log out</a>
-                                </div>
+                        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
+                            echo '<li class="nav-item active ">
+                                <a class="nav-link align-middle text-dark" href="user_info.php" >'.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
+                            </li>   
+                            <li class="nav-item dropdown">
+                                <a class="nav-link align-right text-dark" href="logout.php" >Log out</a>
+                            </li>';
+                        else
+                            echo '<li class="nav-item active">
+                                    <a class="nav-link align-right text-dark" align="right" href="login.php"><h6>Login</h6> <span class="sr-only">(current)</span></a>
                                 </li>
-                                <li class="nav-item active ">
-                                    <a class="nav-link align-middle" >Logged in as '.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
+                                <li class="nav-item active">
+                                    <a class="nav-link align-right text-dark" href="register.php"><h6>Register</h6> <span class="sr-only">(current)</span></a>
                                 </li>';
-                            else{
-                                echo '<li class="nav-item active">
-                                        <a class="nav-link" align="right" href="login.php">Login <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="register.php">Sign up <span class="sr-only">(current)</span></a>
-                                    </li>';
-                            }
+                            
 
                                     $error = $message =  '';
                                     $firstname = $lastname = $email = $username = '';
@@ -153,7 +156,7 @@
                     </ul>    
                 </div>
             </nav>
-            </div>
+        </div>
             <br>
             <br>
             <div class="container">
@@ -185,13 +188,7 @@
                             <button type="button" id="btn_change"class="btn btn-dark" >Edit</button>
                         <!--</div>-->                    
                 </form>
-                
-                <br>
-                <br>
-                <?php
-                
-                    
-                ?>
+
             </div>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -199,16 +196,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script>
-                    $("form").submit(function(event){ 
-                        
-
+                    $("form").submit(function(event)
+                    { 
                     })
                     
-                    $("#btn_change").on("click",function(){
+                    $("#btn_change").on("click",function()
+                    {
                         $("#lastname").prop('disabled', false);
                         $("#firstname").prop('disabled', false);
-                        //$("#email").prop('disabled', false);
-                        //$("#password").prop('disabled', false);
                     })
         </script> 
     </body>
