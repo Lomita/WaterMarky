@@ -120,8 +120,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 						title="minimum one Upper-, one lower-case letter, one number and one specialcharacter, minimum 8 characters long."
 						required="true">
 			</div>
-			<button type="submit" name="button" value="submit" class="btn btn-info">Log in</button>
-			<a class="btn btn-warning" data-toggle="collapse.show" href="WaterMarky.php" role="button" aria-expanded="false" aria-controls="collapseExample">Zurück</a>
+			<button type="submit" name="button" value="submit" class="btn btn-primary" >Log in</button>
+			<a class="btn btn-secondary" data-toggle="collapse.show" href="WaterMarky.php" role="button">Zurück</a>
 		</form>
 	</div>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
