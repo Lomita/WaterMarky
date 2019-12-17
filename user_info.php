@@ -168,7 +168,7 @@
                     <a>Vorname</a>
                     <input type="text" class="form-control" id="firstname" disabled=true name="change_firstname" value="<?php echo $sfirstname?>" aria-label="Kontaktinformation" aria-describedby="button-addon2" maxlength="30"
                 required="true"><br />
-                    <a>e-Mail</a>
+                    <a>Mail</a>
                     <input type="text" class="form-control" id="email" disabled=true name="search_mail" value="<?php echo $semail?>" aria-label="Kontaktinformation"maxlength="100"
                 required="true" aria-describedby="button-addon2"><br />
                     <a>Passwort</a>

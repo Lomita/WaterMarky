@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 	// password
 	if(!empty(trim($_POST['password']))){
 		$password = trim($_POST['password']);
-		// passwort gültig?
+		// password valid?
 		if(!preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)){
 			$error .= "The password does not meet the required format.<br />";
 		}
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 		$error .= "Please enter you're password.<br />";
 	}
 	
-	// kein fehler
+	// no errors
 	if(empty($error))
 	{
 		$username = htmlspecialchars(trim($_POST['username']));
