@@ -21,7 +21,9 @@
                         <img src="rsc/cat.jpg" alt="smug_cat" mb-auto class="img-thumbnail img-responsive">
                         <a class="nav-link align-middle btn btn-primary" data-toggle="collapse" href="WaterMarky.php" role="button" aria-expanded="false" >Back to Home</a>  
                       </div>';
-            } 
+            }
+            else    
+                header("Location: WaterMarky.php"); 
         ?>    
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </body>

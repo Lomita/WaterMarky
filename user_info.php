@@ -30,7 +30,7 @@
         }
 
         if($_SERVER['REQUEST_METHOD'] == "POST" && 
-           $_POST['save_data'] != NULL && 
+           isset($_POST['save_data']) && 
            $_POST['change_firstname'] != NULL && 
            $_POST['change_lastname'] != NULL && 
            $_POST['change_mail'] != NULL)
@@ -87,7 +87,10 @@
             }
         }     
     }
-    else
+    else if($_SERVER['REQUEST_METHOD'] == "POST" && 
+            isset($_POST['delete_account']))
+            header("Location: delete_account.php");
+    else    
         header("Location: WaterMarky.php");
 ?>
 
@@ -175,8 +178,9 @@
 
             <input type="submit" class="btn btn-success" name="save_data" value="Save" visible=false id="button-change"></button>
             <button type="button" id="btn_change"class="btn btn-warning" name="edit" >Edit</button>
-            <input type="submit" class="btn btn-danger alignment-right" name="save" visible=false value="Delete Account" id="button-change"></button>
+            <a class="btn btn-danger" href="delete_account.php" onclick="return  confirm('All information will be erased!')">Delete Account</a>
         </form>
+        
     </div>
     
     <!-- Optional JavaScript -->
@@ -184,11 +188,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script>
-                $("form").submit(function(event)
-                { 
-                })
-                
+    <script> 
                 //enable last- and first name
                 $("#btn_change").on("click",function()
                 {
