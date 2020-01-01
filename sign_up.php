@@ -7,65 +7,66 @@ require 'dataBaseConnection.php';
   $firstname = $lastname = $email = $username = '';
 
 // did "POST" carry Data?
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-    // Output of entire $_POST Array
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
+if($_SERVER['REQUEST_METHOD'] == "POST")
+{
+    /* Output of entire $_POST Array
+      echo "<pre>";
+      print_r($_POST);
+      echo "</pre>";
+    */
 
     // firstname exists, miniimum 1 character and maximum 30 characters long
-    if(isset($_POST['firstname']) && !empty(trim($_POST['firstname'])) && strlen(trim($_POST['firstname'])) <= 30){
+    if(isset($_POST['firstname']) && !empty(trim($_POST['firstname'])) && strlen(trim($_POST['firstname'])) <= 30)
       // escape special characters > stop script injection
       $firstname = htmlspecialchars(trim($_POST['firstname']));
-    } else {
-      // output error message
+ 
+    else 
       $error .= "Please enter a correct firstname.<br />";
-    }
 
     // lastname exists, miniimum 1 character and maximum 30 characters long
-    if(isset($_POST['lastname']) && !empty(trim($_POST['lastname'])) && strlen(trim($_POST['lastname'])) <= 30){
-      // escape special characters > stop script injection
+    if(isset($_POST['lastname']) && !empty(trim($_POST['lastname'])) && strlen(trim($_POST['lastname'])) <= 30)
+      //escape special characters > stop script injection
       $lastname = htmlspecialchars(trim($_POST['lastname']));
-    } else {
-      // output error message
+
+    else 
       $error .= "Please enter a correct lastname.<br />";
-    }
 
     // mail exists, miniimum 1 character and maximum 100 characters long
-    if(isset($_POST['email']) && !empty(trim($_POST['email'])) && strlen(trim($_POST['email'])) <= 100){
+    if(isset($_POST['email']) && !empty(trim($_POST['email'])) && strlen(trim($_POST['email'])) <= 100)
+    {
       $email = htmlspecialchars(trim($_POST['email']));
+      
       // mail correct?
-      if (filter_var($email, FILTER_VALIDATE_EMAIL) === false){
+      if (filter_var($email, FILTER_VALIDATE_EMAIL) === false)
         $error .= "Please enter a correct mailadress.<br />";
-      }
-    } else {
+    } 
+    else 
       // output error message
       $error .= "Please enter a valid mailadress.<br />";
-    }
 
     // username exists, miniimum 6 character and maximum 30 characters long
-    if(isset($_POST['username']) && !empty(trim($_POST['username'])) && strlen(trim($_POST['username'])) <= 30){
+    if(isset($_POST['username']) && !empty(trim($_POST['username'])) && strlen(trim($_POST['username'])) <= 30)
+    {
       $username = trim($_POST['username']);
       // does the username meet the requirements? (minimum 6 characters, upper- and lower-case letter)
-      if(!preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}/", $username)){
+      if(!preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}/", $username))
         $error .= "The username is not in the correct format.<br />";
-      }
-    } else {
+    } 
+    else 
       // output error message
       $error .= "Please enter a correct username.<br />";
-    }
 
     // password exists, minimum 8 characters
     if(isset($_POST['password']) && !empty(trim($_POST['password']))){
       $password = trim($_POST['password']);
       //does the password meet the requirements? (minimum 8 characters, numbers, no breaks, minimum one upper- and one lower-case letter)
-      if(!preg_match("/(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)){
+      if(!preg_match("/(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password))
         $error .= "The password does not meet the required format.<br />";
-      }
-    } else {
+
+    } 
+    else
       // output error message
       $error .= "Please enter a correct lastname.<br />";
-    }
 
     // wirte data into Database if there are no errors
     if(empty($error))
@@ -78,21 +79,39 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $email = htmlspecialchars(trim($_POST['email']));
         $role_id = 1; //standard user
 
-        $password = password_hash($password, PASSWORD_DEFAULT);
-
-        $query = "INSERT INTO users (role_id, email, firstname, lastname, password,username)
-        VALUES (?,?,?,?,?,?); ";
-
+        //check if username already exists
+        $query = "SELECT * FROM users WHERE username = ?";
+      
         $stmt = $mysqli->prepare($query);
-        $stmt->bind_param('isssss', $role_id, $email, $firstname,$lastname,$password,$username);		
+        $stmt->bind_param('s', $username);		
         $stmt->execute();
-
+            
         $result = $stmt->get_result();
-        $stmt->close();
-        
-        echo($result);
+    
+        while($user = $result->fetch_assoc())
+        {
+          if($user['username'] === $username)
+            $error = 'Username '.$username.' is already taken!';
+        }               
 
-        header("Location: sign_in.php");
+        if(empty($error))
+        {
+          $password = password_hash($password, PASSWORD_DEFAULT);
+
+          $query = "INSERT INTO users (role_id, email, firstname, lastname, password,username)
+          VALUES (?,?,?,?,?,?); ";
+  
+          $stmt = $mysqli->prepare($query);
+          $stmt->bind_param('isssss', $role_id, $email, $firstname,$lastname,$password,$username);		
+          $stmt->execute();
+  
+          $result = $stmt->get_result();
+          $stmt->close();
+          
+          //echo($result);
+  
+          header("Location: sign_in.php");
+        }
     }
   }
 ?>
@@ -120,15 +139,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	<div class="container p-4 mb-2 bg-dark  text-light"> 
       <h1>Sign up</h1>
       <p>
-        Please sign in to use this service.
+        Please sign up to use this service.
       </p>
       <?php
         // output error message
-        if(!empty($error)){
+        if(!empty($error))
           echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
-        } else if (!empty($message)){
+        else if (!empty($message))
           echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
-        }
       ?>
       <form action="" method="post">
         <!-- vorname -->

@@ -1,5 +1,6 @@
 <?php
     session_start();
+    
     /** sends a notification message and redirects to WaterMarky.php
      * @param msg message to confirm 
      */

@@ -7,29 +7,31 @@ $error = '';
 $message = '';
 
 // form was sent and visitor is not logged in.
-if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
+if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
+{
 	// username
-	if(!empty(trim($_POST['username']))){
-
+	if(!empty(trim($_POST['username'])))
+	{
 		$username = trim($_POST['username']);
 		
 		// checking username
-		if(!preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}/", $username) || strlen($username) > 30){
+		if(!preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}/", $username) || strlen($username) > 30)
 			$error .= "The username does not meet the required format.<br />";
-		}
-	} else {
+	} 
+	else 
 		$error .= "Please enter you're username.<br />";
-	}
+	
 	// password
-	if(!empty(trim($_POST['password']))){
+	if(!empty(trim($_POST['password'])))
+	{
 		$password = trim($_POST['password']);
 		// password valid?
-		if(!preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password)){
+		if(!preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password))
 			$error .= "The password does not meet the required format.<br />";
-		}
-	} else {
+	} 
+	else 
 		$error .= "Please enter you're password.<br />";
-	}
+	
 	
 	// no errors
 	if(empty($error))
@@ -60,9 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 				header('Location: WaterMarky.php');		
 			}
 			else
-			{
 				$error = 'Username or password are wrong!';
-			}
 		}
 	}
 }
@@ -76,23 +76,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 		<title>WaterMarky | Sign in</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	</head>
-	<body> 
     <body>
 		<!-- icon and titel -->
 		<div class="container bg-dark text-light"> 
-        <div class="container bg-light  text-dark"> 
-        <a class="navbar-brand align-middle text-dark" href="WaterMarky.php">
-            <img src="rsc/wizard-nav-bar.svg" width="70" height="70" class="d-inline-block align-left">
-            <h1 class="d-inline-block align-middle">WaterMarky v2.0</h1>
-        </a>
-        </div>
-    </div>
+			<div class="container bg-light  text-dark"> 
+				<a class="navbar-brand align-middle text-dark" href="WaterMarky.php">
+					<img src="rsc/wizard-nav-bar.svg" width="70" height="70" class="d-inline-block align-left">
+					<h1 class="d-inline-block align-middle">WaterMarky v2.0</h1>
+				</a>
+			</div>
+    	</div>
     
 	<div class="container p-4 mb-2 bg-dark  text-light"> 
 		<h1>Sign in</h1>
-		<p>
-			Please log in using you're username and password.
-		</p>
+			<p>
+				Please log in using you're username and password.
+			</p>
 		<?php
 			// output error or success message
 			if(!empty($message))
@@ -103,14 +102,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)){
 		?>
 		<form action="" method="POST">
 			<div class="form-group">
-			<label for="username">Username *</label>
-			<input type="text" name="username" class="form-control" id="username"
-					value=""
-					placeholder="Upper- and lower-case, min 6 characters."
-					maxlength="30" required="true"
-					pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}"
-					title="Upper- and lower-case, min 6 characters.">
+				<label for="username">Username *</label>
+				<input type="text" name="username" class="form-control" id="username"
+						value=""
+						placeholder="Upper- and lower-case, min 6 characters."
+						maxlength="30" required="true"
+						pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}"
+						title="Upper- and lower-case, min 6 characters.">
 			</div>
+
 			<!-- password -->
 			<div class="form-group">
 				<label for="password">Password *</label>

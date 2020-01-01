@@ -1,5 +1,4 @@
 <?php
-    require 'dataBaseConnection.php';
     session_start();
 
     //phpinfo();
@@ -72,7 +71,7 @@
             </form>
         </div>
 
-        <!-- FILESELECTION -->
+        <!-- PICTURE AND WATERMARK -->
         <div class="container p-4 mb-2 bg-dark  text-light">
         <h4>Picture & Watermark</h4>
             <form action="enchant_pictures.php" method="post">
