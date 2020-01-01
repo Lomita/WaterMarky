@@ -29,13 +29,13 @@
             $y_res = 200;
             
             //custom resolution
-            if(isset($_POST['horizontal_res']) && !empty($_POST['horizontal_res'])) 
-                $x_res = $_POST['horizontal_res'];
+            if(isset($_POST['horizontal_res']) && !empty($_POST['horizontal_res']) && is_numeric($_POST['horizontal_res'])) 
+                $x_res = htmlspecialchars($_POST['horizontal_res']);
             else
                 $x_res = $image->getImageWidth();
             
-            if(isset($_POST['vertical_res']) && !empty($_POST['vertical_res']))
-                $y_res = $_POST['vertical_res'];
+            if(isset($_POST['vertical_res']) && !empty($_POST['vertical_res']) && is_numeric($_POST['vertical_res']))
+                $y_res = htmlspecialchars($_POST['vertical_res']);
             else
                 $y_res = $image->getImageHeight();
 

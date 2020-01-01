@@ -106,8 +106,9 @@
             $draw->setStrokeColor('black');
             $draw->setStrokeWidth(1);
 
+            $txt = htmlspecialchars($_POST['text']);
             $yText = $img_Height - 20;
-            $image->annotateImage($draw, 0, $yText, 0, $_POST['text']);
+            $image->annotateImage($draw, 0, $yText, 0, $txt);
         }
 
 
