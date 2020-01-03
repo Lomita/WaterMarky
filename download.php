@@ -22,7 +22,15 @@
 
         if(isset($filepath) && file_exists($filepath))
         {
-            $image = new Imagick();
+            if(class_exists('Imagick'))
+                $image = new Imagick();
+            //Library could not be loaded    
+            else
+            {
+                popMsg('Error: Your image could not be downloaded, contact the system administrator!');
+                return;
+            }
+
             $image->readImage(getcwd(). "\\".$filepath);
 
             $x_res = 200; 

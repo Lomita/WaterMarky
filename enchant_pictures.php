@@ -21,12 +21,29 @@
              $_SESSION['dropDownItems'][$_POST['waterMarkDropDown']]['filePath'])
     {
         // Open the image to draw a watermark
-        $image = new Imagick();
+ 
+        if(class_exists('Imagick'))
+            $image = new Imagick();
+        //Library could not be loaded    
+        else
+        {
+            popMsg('Error: Your image could not be edited, contact the system administrator!');
+            return;
+        }
+ 
         $image->readImage(getcwd(). "\\".$_SESSION['dropDownItems'][$_POST['picDropDown']]['filePath']);
 
         // Open the watermark image
-        // Important: the image should be obviously transparent with .png format
-        $watermark = new Imagick();
+        // Important: the image should be obviously transparent with .png format  
+        if(class_exists('Imagick'))
+            $watermark = new Imagick();
+        //Library could not be loaded    
+        else
+        {
+            popMsg('Error: Your image could not be edited, contact the system administrator!');
+            return;
+        }
+
         $watermark->readImage(getcwd(). "\\".$_SESSION['dropDownItems'][$_POST['waterMarkDropDown']]['filePath']);
 
         // Retrieve size of the Images to verify how to print the watermark on the image

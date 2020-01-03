@@ -87,20 +87,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 			</div>
     	</div>
     
-	<div class="container p-4 mb-2 bg-dark  text-light"> 
-		<h1>Sign in</h1>
-			<p>
-				Please log in using you're username and password.
-			</p>
+	<div class="container p-4 mb-2 bg-dark  text-light">  
+	<h1>Sign in</h1>
+	<p>
+		Please log in using you're username and password.
+	</p>
 		<?php
-			// output error or success message
-			if(!empty($message))
-				echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
-			else if(!empty($error))
-				echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
-
+			// output error message
+			if(!empty($error))
+			echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+			else if (!empty($message))
+			echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
 		?>
-		<form action="" method="POST">
+		<form action="" method="post">
+			
+			<!-- username -->
 			<div class="form-group">
 				<label for="username">Username *</label>
 				<input type="text" name="username" class="form-control" id="username"
@@ -120,8 +121,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 						title="minimum one Upper-, one lower-case letter, one number and one specialcharacter, minimum 8 characters long."
 						required="true">
 			</div>
+			
 			<button type="submit" name="button" value="submit" class="btn btn-primary" >Log in</button>
-			<a class="btn btn-secondary" data-toggle="collapse.show" href="WaterMarky.php" role="button">Zurück</a>
+			<a class="btn btn-secondary" data-toggle="collapse.show" href="WaterMarky.php" role="button">Back</a>
+		
 		</form>
 	</div>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
