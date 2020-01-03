@@ -58,6 +58,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 				$_SESSION = array();
 				$_SESSION['username'] = $username;
 				$_SESSION['loggedin'] = true;
+				
+				$role = 'User';
+				if($user['role_id'] == 2)
+					$role = 'Magick User';
+
+				$_SESSION['role_id'] = $role;
 
 				header('Location: WaterMarky.php');		
 			}

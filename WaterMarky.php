@@ -44,12 +44,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto ">
                         <?php
+                        
                         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
                             echo '<li class="nav-item active ">
-                                <a class="nav-link align-middle text-dark" href="user_info.php" >'.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
+                                <a class="nav-link align-middle text-success" href="user_info.php" >'.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
                             </li>   
                             <li class="nav-item dropdown">
-                                <a class="nav-link align-right text-dark" href="sign_out.php" >Sign out</a>
+                            <a class="nav-link align-right text-primary" href="user_info.php" >Account Type: '.$_SESSION['role_id'].'</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link align-right text-danger" href="sign_out.php" >Sign out</a>
                             </li>';
                         else
                             echo '<li class="nav-item active">
@@ -141,14 +145,17 @@
                     <h6>Textmark</h6>
                         <input name="text" type="text" class="form-control" placeholder="Enter text (optional)">
                     </div>
-                    <div class="col">
-                    <h6>Shapemark</h6>
-                        <select name="inputShape" class="form-control">
-                            <option selected>Add shape (optional)</option>
-                            <option value="rectangle">rectangle</option>
-                            <option value="circle">circle</option>
-                        </select>
-                    </div>
+                    <?php
+                    if(isset($_SESSION['role_id']) && strcmp($_SESSION['role_id'], "Magick User") == 0)
+                            echo'<div class="col">
+                                <h6>Shapemark</h6>
+                                    <select name="inputShape" class="form-control">
+                                        <option selected>Add shape (optional)</option>
+                                        <option value="rectangle">rectangle</option>
+                                        <option value="circle">circle</option>
+                                    </select>
+                                </div>'
+                    ?>
                 </div>
                 <br>
                 <h6>Mark Alignement</h6>
@@ -194,23 +201,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                <h6>File format</h6>
-                    <div class="form-row">
-                        <div class="col">
-                            <select id="fileFormat" name="fileFormat" class="form-control">
-                                <option>jpg</option>
-                                <option>png</option>
-                                <option>bmp</option>
-                                <option>svg</option>
-                                <option>pdf</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-primary" type="submit" name="submit" id="download">Download</button>
+                <?php
+                if(isset($_SESSION['role_id']) && strcmp($_SESSION['role_id'], "Magick User") == 0)
+                echo '
+                    <div class="form-group">
+                    <h6>File format</h6>
+                        <div class="form-row">
+                            <div class="col">
+                                <select id="fileFormat" name="fileFormat" class="form-control">
+                                    <option>jpg</option>
+        
+                                    <option>png</option>
+                                    <option>bmp</option>
+                                    <option>svg</option>
+                                    <option>pdf</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary" type="submit" name="submit" id="download">Download</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                ' ?>
             </form>
         </div>
 

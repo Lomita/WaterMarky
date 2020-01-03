@@ -127,13 +127,16 @@
                 <ul class="navbar-nav mr-auto ">    
                     <?php
                         //if not logged in return to watermarky mainpage
-                        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && isset($_SESSION['username']) && !empty($_SESSION['username']))
+                        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
                             echo '<li class="nav-item active ">
-                                    <a class="nav-link align-middle text-dark" href="WaterMarky.php" >'.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
-                                </li>   
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link align-right text-dark" href="sign_out.php" >Sign out</a>
-                                </li>';
+                                <a class="nav-link align-middle text-success" href="WaterMarky.php" >'.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
+                            </li>   
+                            <li class="nav-item dropdown">
+                            <a class="nav-link align-right text-primary" href="WaterMarky.php" >Account Type: '.$_SESSION['role_id'].'</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link align-right text-danger" href="sign_out.php" >Sign out</a>
+                            </li>';
                         else
                             header("Location: WaterMarky.php");
                     ?>

@@ -131,9 +131,12 @@
 
         //echo "You have chosen:" .$_POST['inputShape'];  // Displaying Selected Value
 
-        // Check if a shape was added
+        // Check if a shape was added and user has role Magick User
         // Draw shape
-        if (isset($_POST['inputShape'])) {
+        if (isset($_SESSION['role_id']) && 
+            strcmp($_SESSION['role_id'], "Magick User") == 0 && 
+            isset($_POST['inputShape'])) 
+        {
             switch ($_POST['inputShape']) {
                 
                 case 'rectangle':

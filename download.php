@@ -50,7 +50,9 @@
             $image->resizeImage($x_res, $y_res, Imagick::FILTER_LANCZOS, 0.5);
 
             //custom format
-            if(!empty(isset($_POST['fileFormat'])) ? $fileFormat = $_POST['fileFormat'] : $fileFormat = $image->getImageFormat());
+            if(isset($_SESSION['role_id']) && 
+            strcmp($_SESSION['role_id'], "Magick User") == 0 &&
+            !empty(isset($_POST['fileFormat'])) ? $fileFormat = $_POST['fileFormat'] : $fileFormat = $image->getImageFormat());
 
             $image->setImageFormat($fileFormat);
             
