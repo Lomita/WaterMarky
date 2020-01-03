@@ -1,13 +1,18 @@
 <?php
     session_start();
 
-    //phpinfo();
-    if(!isset($_SESSION['dropDownItems']))
-    $_SESSION['dropDownItems'] = array (NULL);
+    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
+    {
+        //phpinfo();
+        if(!isset($_SESSION['dropDownItems']))
+        $_SESSION['dropDownItems'] = array (NULL);
 
-    //true to show already uploaded images ;)
-    if(!isset($_SESSION['newFile']))
-    $_SESSION['newFile'] = true;
+        //true to show already uploaded images ;)
+        if(!isset($_SESSION['newFile']))
+        $_SESSION['newFile'] = true;
+    }
+    else
+        header('Location: PreWaterMarky.php');
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +86,7 @@
                         <h6>Canvas</h6>
                         <select class="custom-select" id="picDropDown" name="picDropDown">
                             <?php               
-                                if($_SESSION['newFile'] === true)
+                                if($_SESSION['newFile'] === true && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
                                 {
                                     //refill combo box
                                     $_SESSION['dropDownItems'] = array(NULL);
@@ -106,7 +111,7 @@
                         <h6>Picmark</h6>
                         <select class="custom-select" id="waterMarkDropDown" name="waterMarkDropDown">
                             <?php               
-                                if($_SESSION['newFile'] === true)
+                                if($_SESSION['newFile'] === true && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
                                 {
                                     //refill combo box
                                     $_SESSION['dropDownItems'] = array(NULL);
