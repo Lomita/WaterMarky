@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 	{
 		$username = htmlspecialchars(trim($_POST['username']));
 		$password = htmlspecialchars(trim($_POST['password']));
+		$saltedPw = "iLiKeMy".$password."ButIlIkeCaKeMuChMoRe";
 
 		$query = "SELECT * FROM users WHERE username = ?";
 		
@@ -49,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 
 		while($user = $result->fetch_assoc())
 		{
-			if(password_verify($password, $user['password']) && $user['username'] === $username)
+			if(password_verify($saltedPw, $user['password']) && $user['username'] === $username)
 			{
 				$message = 'You have been logged in successfully!';
 

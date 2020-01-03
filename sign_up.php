@@ -96,7 +96,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 
         if(empty($error))
         {
-          $password = password_hash($password, PASSWORD_DEFAULT);
+          $salted = "iLiKeMy".$password."ButIlIkeCaKeMuChMoRe";
+
+          $password = password_hash($salted, PASSWORD_DEFAULT);
 
           $query = "INSERT INTO users (role_id, email, firstname, lastname, password,username)
           VALUES (?,?,?,?,?,?); ";
