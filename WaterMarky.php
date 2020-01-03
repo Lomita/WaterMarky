@@ -201,28 +201,28 @@
                         </div>
                     </div>
                 </div>
-                <?php
-                if(isset($_SESSION['role_id']) && strcmp($_SESSION['role_id'], "Magick User") == 0)
-                echo '
-                    <div class="form-group">
-                    <h6>File format</h6>
-                        <div class="form-row">
-                            <div class="col">
-                                <select id="fileFormat" name="fileFormat" class="form-control">
-                                    <option>jpg</option>
-        
-                                    <option>png</option>
-                                    <option>bmp</option>
-                                    <option>svg</option>
-                                    <option>pdf</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-primary" type="submit" name="submit" id="download">Download</button>
-                            </div>
+                <div class="form-group">
+                    <div class="form-row">
+                    <?php
+                    if(isset($_SESSION['role_id']) && strcmp($_SESSION['role_id'], "Magick User") == 0)
+                    echo '
+                        <div class="col">
+                        <h6>File format</h6>
+                            <select id="fileFormat" name="fileFormat" class="form-control">
+                                <option>jpg</option>
+                                <option>png</option>
+                                <option>bmp</option>
+                                <option>svg</option>
+                                <option>pdf</option>
+                            </select>
+                        </div>
+                        ' ?>
+                        <div class="col">
+                        <h6 style="visibility:hidden">Download</h6>
+                            <button class="btn btn-primary" type="submit" name="submit" id="download">Download</button>
                         </div>
                     </div>
-                ' ?>
+                </div>
             </form>
         </div>
 
