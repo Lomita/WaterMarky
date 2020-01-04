@@ -47,7 +47,7 @@
                         
                         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
                             echo '<li class="nav-item active ">
-                                <a class="nav-link align-middle text-success" href="user_info.php" >'.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
+                                <a class="nav-link align-middle text-success" href="user_info.php" >'.htmlspecialchars(trim($_SESSION['username'])).' <span class="sr-only">(current)</span></a>
                             </li>   
                             <li class="nav-item dropdown">
                             <a class="nav-link align-right text-primary" href="user_info.php" >Account Type: '.$_SESSION['role_id'].'</a>
@@ -103,7 +103,7 @@
                                         if (in_array($ext, $supported_format))
                                         {
                                             //echo '<img src="'.$image_name .'" alt="'.$image_name.'" />'."<br /><br />";
-                                            print_r('<option value="'.$i.'">'.basename($image_name).'</option>');
+                                            print_r('<option value="'.$i.'">'.htmlspecialchars(basename($image_name)).'</option>');
                                             $_SESSION['dropDownItems'][$i]['filePath'] = $image_name;
                                         }        
                                     }
@@ -128,7 +128,7 @@
                                         if (in_array($ext, $supported_format))
                                         {
                                             //echo '<img src="'.$image_name .'" alt="'.$image_name.'" />'."<br /><br />";
-                                            print_r('<option value="'.$i.'">'.basename($image_name).'</option>');
+                                            print_r('<option value="'.$i.'">'.htmlspecialchars(basename($image_name)).'</option>');
                                             $_SESSION['dropDownItems'][$i]['filePath'] = $image_name;
                                         }        
                                     }

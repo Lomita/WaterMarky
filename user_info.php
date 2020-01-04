@@ -129,7 +129,7 @@
                         //if not logged in return to watermarky mainpage
                         if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
                             echo '<li class="nav-item active ">
-                                <a class="nav-link align-middle text-success" href="WaterMarky.php" >'.$_SESSION['username'].' <span class="sr-only">(current)</span></a>
+                                <a class="nav-link align-middle text-success" href="WaterMarky.php" >'.htmlspecialchars(trim($_SESSION['username'])).' <span class="sr-only">(current)</span></a>
                             </li>   
                             <li class="nav-item dropdown">
                             <a class="nav-link align-right text-primary" href="WaterMarky.php" >Account Type: '.$_SESSION['role_id'].'</a>
@@ -158,7 +158,7 @@
             <!-- Firstname -->    
             <a class="text-left font-weight-bold">Firstname</a>
             <input type="text" class="form-control" id="firstname" disabled=true name="change_firstname" 
-                value="<?php echo $sfirstname?>" aria-label="Kontaktinformation" 
+                value="<?php echo htmlspecialchars(trim($sfirstname))?>" aria-label="Kontaktinformation" 
                 aria-describedby="button-addon2" maxlength="30" required="true">
             <br/>
             
@@ -166,7 +166,7 @@
             <a class="text-left font-weight-bold">Lastname</a> 
             <input type="text" class="form-control"
                     id="lastname" disabled=true name="change_lastname" 
-                    value="<?php echo $slastname;?>" 
+                    value="<?php echo htmlspecialchars(trim($slastname));?>" 
                     aria-label="Kontaktinformation" aria-describedby="button-addon2"
                     maxlength="30"
                     required="true">
@@ -175,7 +175,7 @@
             <!-- Mail -->
             <a class="text-left font-weight-bold">Mail</a>
             <input type="text" class="form-control" id="email" disabled=true name="change_mail" 
-                value="<?php echo $semail?>" aria-label="Kontaktinformation" maxlength="100"
+                value="<?php echo htmlspecialchars(trim($semail))?>" aria-label="Kontaktinformation" maxlength="100"
                 required="true" aria-describedby="button-addon2">
             <br/>
 

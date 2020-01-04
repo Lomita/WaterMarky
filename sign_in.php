@@ -32,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 	else 
 		$error .= "Please enter you're password.<br />";
 	
-	
 	// no errors
 	if(empty($error))
 	{
@@ -57,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 				session_regenerate_id();
 				
 				$_SESSION = array();
-				$_SESSION['username'] = $username;
+				$_SESSION['username'] = htmlspecialchars(trim($username));
 				$_SESSION['loggedin'] = true;
 				
 				$role = 'User';
@@ -102,9 +101,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 		<?php
 			// output error message
 			if(!empty($error))
-			echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+			echo "<div class=\"alert alert-danger\" role=\"alert\">" . htmlspecialchars($error) . "</div>";
 			else if (!empty($message))
-			echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
+			echo "<div class=\"alert alert-success\" role=\"alert\">" . htmlspecialchars($message) . "</div>";
 		?>
 		<form action="" method="post">
 			

@@ -146,9 +146,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       <?php
         // output error message
         if(!empty($error))
-          echo "<div class=\"alert alert-danger\" role=\"alert\">" . $error . "</div>";
+          echo "<div class=\"alert alert-danger\" role=\"alert\">" . htmlspecialchars($error) . "</div>";
         else if (!empty($message))
-          echo "<div class=\"alert alert-success\" role=\"alert\">" . $message . "</div>";
+          echo "<div class=\"alert alert-success\" role=\"alert\">" . htmlspecialchars($message) . "</div>";
       ?>
       <form action="" method="post">
         <!-- vorname -->
