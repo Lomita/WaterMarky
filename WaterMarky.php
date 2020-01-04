@@ -32,9 +32,9 @@
             unterstützen vielleicht noch nicht standardmäßig die CSP und benötigen stattdessen "X-Webkit-CSP" als Header(-Ersatz).
         
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
-        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
-        <meta http-equiv="X-WebKit-CSP" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; script-src-elem *; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'; script-src-elem *; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+        <meta http-equiv="X-WebKit-CSP" content="default-src 'self'; script-src 'self'; script-src-elem *;  img-src *; style-src 'unsafe-inline'; style-src-elem *">
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>WaterMarky | Home</title>

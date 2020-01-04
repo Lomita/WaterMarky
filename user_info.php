@@ -100,9 +100,9 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
-    <meta http-equiv="X-WebKit-CSP" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; script-src-elem * 'unsafe-inline'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; script-src-elem * 'unsafe-inline'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+    <meta http-equiv="X-WebKit-CSP" content="default-src 'self'; script-src 'self' 'unsafe-inline'; script-src-elem * 'unsafe-inline';  img-src *; style-src 'unsafe-inline'; style-src-elem *">
         
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
