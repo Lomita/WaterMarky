@@ -13,78 +13,92 @@
         $query = "SELECT * FROM users WHERE username = ?";
         
         $stmt = $mysqli->prepare($query);
-        $stmt->bind_param('s', $tmpUsername);		
-        $stmt->execute();
+        if($stmt == false)
+            $error = 'Something went wrong!';
         
-        $result = $stmt->get_result();
-
-        while($user = $result->fetch_assoc())
+        if(empty($error))
         {
-            if($user['username'] === $_SESSION['username'])
+
+            $stmt->bind_param('s', $tmpUsername);		
+            $stmt->execute();
+            
+            $result = $stmt->get_result();
+
+            while($user = $result->fetch_assoc())
             {
-                $slastname = $user['lastname'];
-                $sfirstname = $user['firstname'];
-                $semail = $user['email'];
+                if($user['username'] === $_SESSION['username'])
+                {
+                    $slastname = $user['lastname'];
+                    $sfirstname = $user['firstname'];
+                    $semail = $user['email'];
+                }
+                else
+                    $error = 'The data corresponding to your account could not be found, contact the system administrator!';
             }
-            else
-                $error = 'The data corresponding to your account could not be found, contact the system administrator!';
-        }
 
-        if($_SERVER['REQUEST_METHOD'] == "POST" && 
-           isset($_POST['save_data']) && 
-           $_POST['change_firstname'] != NULL && 
-           $_POST['change_lastname'] != NULL && 
-           $_POST['change_mail'] != NULL)
-        {
-            $error = $message =  '';
-            $firstname = $lastname = $email = $username = '';  
-
-            if(strcmp($_POST['change_firstname'], $sfirstname) == 0 && 
-               strcmp($_POST['change_lastname'], $slastname) == 0 && 
-               strcmp($_POST['change_mail'], $semail) == 0)
-                $error .= "Nothing has changed!";
-
-            // vorname vorhanden, mindestens 1 Zeichen und maximal 30 Zeichen lang
-            if(!empty(trim($_POST['change_firstname'])) && strlen(trim($_POST['change_firstname'])) <= 30)
-                $firstname = htmlspecialchars(trim($_POST['change_firstname']));
-            else 
-                $error .= "Please enter a correct first name.<br />";
-
-            // nachname vorhanden, mindestens 1 Zeichen und maximal 30 zeichen lang
-            if(!empty(trim($_POST['change_lastname'])) && strlen(trim($_POST['change_lastname'])) <= 30)
-                $lastname = htmlspecialchars(trim($_POST['change_lastname']));
-            else
-                $error .= "Please enter a correct lastname ein.<br />";
-
-            // emailadresse vorhanden, mindestens 1 Zeichen und maximal 100 zeichen lang
-            if(!empty(trim($_POST['change_mail'])) && strlen(trim($_POST['change_mail'])) <= 100)
+            if($_SERVER['REQUEST_METHOD'] == "POST" && 
+            isset($_POST['save_data']) && 
+            $_POST['change_firstname'] != NULL && 
+            $_POST['change_lastname'] != NULL && 
+            $_POST['change_mail'] != NULL)
             {
-                $email = htmlspecialchars(trim($_POST['change_mail']));
-                if (filter_var($email, FILTER_VALIDATE_EMAIL) === false)
-                    $error .= "Please enter a correct email address<br />";
-            } 
-            else 
-                $error .= "Please enter a correct email address.<br />";
-            
-            if(empty($error))
-            {
-                $firstname = htmlspecialchars(trim($_POST['change_firstname']));
-                $lastname = htmlspecialchars(trim($_POST['change_lastname']));
-                $email = htmlspecialchars(trim($_POST['change_mail']));
-            
-        
-                $query = "UPDATE users SET email=?,lastname=?,firstname=? WHERE username = ?; ";
-        
-                $stmt = $mysqli->prepare($query);
-                $stmt->bind_param('ssss', $email, $lastname, $firstname, $_SESSION['username']);		
-                $stmt->execute();
-        
-                $result = $stmt->get_result();
-                $stmt->close();
+                $error = $message =  '';
+                $firstname = $lastname = $email = $username = '';  
+
+                if(strcmp($_POST['change_firstname'], $sfirstname) == 0 && 
+                strcmp($_POST['change_lastname'], $slastname) == 0 && 
+                strcmp($_POST['change_mail'], $semail) == 0)
+                    $error .= "Nothing has changed!";
+
+                // vorname vorhanden, mindestens 1 Zeichen und maximal 30 Zeichen lang
+                if(!empty(trim($_POST['change_firstname'])) && strlen(trim($_POST['change_firstname'])) <= 30)
+                    $firstname = htmlspecialchars(trim($_POST['change_firstname']));
+                else 
+                    $error .= "Please enter a correct first name.<br />";
+
+                // nachname vorhanden, mindestens 1 Zeichen und maximal 30 zeichen lang
+                if(!empty(trim($_POST['change_lastname'])) && strlen(trim($_POST['change_lastname'])) <= 30)
+                    $lastname = htmlspecialchars(trim($_POST['change_lastname']));
+                else
+                    $error .= "Please enter a correct lastname ein.<br />";
+
+                // emailadresse vorhanden, mindestens 1 Zeichen und maximal 100 zeichen lang
+                if(!empty(trim($_POST['change_mail'])) && strlen(trim($_POST['change_mail'])) <= 100)
+                {
+                    $email = htmlspecialchars(trim($_POST['change_mail']));
+                    if (filter_var($email, FILTER_VALIDATE_EMAIL) === false)
+                        $error .= "Please enter a correct email address<br />";
+                } 
+                else 
+                    $error .= "Please enter a correct email address.<br />";
                 
-                echo($result);
-        
-                header("Location: user_info.php");
+                if(empty($error))
+                {
+                    $firstname = htmlspecialchars(trim($_POST['change_firstname']));
+                    $lastname = htmlspecialchars(trim($_POST['change_lastname']));
+                    $email = htmlspecialchars(trim($_POST['change_mail']));
+                
+            
+                    $query = "UPDATE users SET email=?,lastname=?,firstname=? WHERE username = ?; ";
+            
+                    $stmt = $mysqli->prepare($query);
+                    if($stmt == false)
+                        $error = 'Something went wrong!';
+            
+                    if(empty($error))
+                    {
+
+                        $stmt->bind_param('ssss', $email, $lastname, $firstname, $_SESSION['username']);		
+                        $stmt->execute();
+                
+                        $result = $stmt->get_result();
+                        $stmt->close();
+                        
+                        echo($result);
+                
+                        header("Location: user_info.php");
+                    }
+                }
             }
         }     
     }

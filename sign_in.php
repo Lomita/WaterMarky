@@ -43,33 +43,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 		$query = "SELECT * FROM users WHERE username = ?";
 		
 		$stmt = $mysqli->prepare($query);
-		$stmt->bind_param('s', $username);		
-		$stmt->execute();
-		
-		$result = $stmt->get_result();
+		if($stmt == false)
+			$error = 'Something went wrong!';
 
-		while($user = $result->fetch_assoc())
+		if(empty($error))
 		{
-			if(password_verify($saltedPw, $user['password']) && $user['username'] === $username)
+			$stmt->bind_param('s', $username);		
+			$stmt->execute();
+			
+			$result = $stmt->get_result();
+
+			while($user = $result->fetch_assoc())
 			{
-				$message = 'You have been logged in successfully!';
+				if(password_verify($saltedPw, $user['password']) && $user['username'] === $username)
+				{
+					$message = 'You have been logged in successfully!';
 
-				session_regenerate_id();
-				
-				$_SESSION = array();
-				$_SESSION['username'] = htmlspecialchars(trim($username));
-				$_SESSION['loggedin'] = true;
-				
-				$role = 'User';
-				if($user['role_id'] == 2)
-					$role = 'Magick User';
+					session_regenerate_id();
+					
+					$_SESSION = array();
+					$_SESSION['username'] = htmlspecialchars(trim($username));
+					$_SESSION['loggedin'] = true;
+					
+					$role = 'User';
+					if($user['role_id'] == 2)
+						$role = 'Magick User';
 
-				$_SESSION['role_id'] = $role;
+					$_SESSION['role_id'] = $role;
 
-				header('Location: WaterMarky.php');		
+					header('Location: WaterMarky.php');		
+				}
+				else
+					$error = 'Username or password are wrong!';
 			}
-			else
-				$error = 'Username or password are wrong!';
 		}
 	}
 }

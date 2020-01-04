@@ -104,15 +104,22 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
           VALUES (?,?,?,?,?,?); ";
   
           $stmt = $mysqli->prepare($query);
-          $stmt->bind_param('isssss', $role_id, $email, $firstname,$lastname,$password,$username);		
-          $stmt->execute();
-  
-          $result = $stmt->get_result();
-          $stmt->close();
           
-          //echo($result);
-  
-          header("Location: sign_in.php");
+          if($stmt == false)
+            $error = 'Something went wrong!';
+
+          if(empty($error))
+          {
+            $stmt->bind_param('isssss', $role_id, $email, $firstname,$lastname,$password,$username);		
+            $stmt->execute();
+    
+            $result = $stmt->get_result();
+            $stmt->close();
+            
+            //echo($result);
+    
+            header("Location: sign_in.php");
+          }
         }
     }
   }
