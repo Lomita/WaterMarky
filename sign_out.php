@@ -9,7 +9,7 @@
     <body> 
         <?php
             session_start();
-            
+            error_reporting(E_ERROR | E_PARSE);
             //logout destroy session
             if(isset($_SESSION))
             {

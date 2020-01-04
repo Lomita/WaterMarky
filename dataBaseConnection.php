@@ -1,15 +1,18 @@
 <?php
+    error_reporting(E_ERROR | E_PARSE);
     $host = 'localhost';
-    $username = 'root';
-    $password = '';
+    $username = 'dbConnect';
+    $password = 'Gwy^*FrXUa6V8%54kG';
     $database = 'watermarky_db';
 
     // connect with database
-    $mysqli = new mysqli($host, $username, $password, $database);
-
-    // error msg connection error
-    if ($mysqli->connect_error) 
+    try
     {
-        die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
+        if (!$mysqli = new mysqli($host, $username, $password, $database))
+            throw new Exception('Unable to connect');
+    }
+    catch(Exception $e)
+    {
+        //echo $e->getMessage();
     }
  ?>

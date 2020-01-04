@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 17. Dez 2019 um 16:09
--- Server-Version: 10.1.39-MariaDB
--- PHP-Version: 7.3.5
+-- Erstellungszeit: 04. Jan 2020 um 11:48
+-- Server-Version: 10.4.8-MariaDB
+-- PHP-Version: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -62,8 +62,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `firstname`, `lastname`, `username`, `password`, `email`) VALUES
-(1, NULL, 'Silian', 'Barlogis', 'Silian', '$2y$10$e3.UskeKfH6YYbXV8v6rcu.w.RXQnz1YOu/qQmaC.FqsQf8VV7v4i', 'silian.barlogis@gmail.com'),
-(2, 1, 'Miruku', 'Miru', 'Mirukaru', '$2y$10$nsVisMxt3kvaMg9q/N6TsugC.QJtUNdQGVTQRSKyFX1HsZ6eRd/7y', 'MiruMiru@miru.com');
+(13, 1, 'Test', 'Test', 'TestTest', '$2y$10$ZcalXySb6VuGRikCgY7Xi.r8XdX5t0.9nRqeT5.f10jgGUjqIXHdK', 'Test@Test.com'),
+(14, 2, 'Magick', 'Magick', 'Magick', '$2y$10$5WIZQW.m.PHq9hO3X6wxS.Ecu90yjk0CFu/kLPt7.O85ueQCRbPIy', 'Magick@Magick.com');
 
 --
 -- Indizes der exportierten Tabellen
@@ -96,7 +96,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints der exportierten Tabellen

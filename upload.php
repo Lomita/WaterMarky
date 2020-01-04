@@ -1,4 +1,5 @@
 <?php
+    error_reporting(E_ERROR | E_PARSE);
     session_start();
     
     /** sends a notification message and redirects to WaterMarky.php

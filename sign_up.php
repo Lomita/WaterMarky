@@ -1,7 +1,7 @@
 <?php
 
 require 'dataBaseConnection.php';
-
+error_reporting(E_ERROR | E_PARSE);
 // Init
   $error = $message =  '';
   $firstname = $lastname = $email = $username = '';
