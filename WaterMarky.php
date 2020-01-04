@@ -1,4 +1,5 @@
 <?php
+    //error_reporting(E_ERROR | E_PARSE);
     session_start();
 
     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
@@ -19,6 +20,22 @@
 <html lang=CH>
 	<head>
         <meta charset="UTF-8" />
+        <!-- 
+            https://wiki.selfhtml.org/wiki/Sicherheit/Content_Security_Policy
+
+            CSP  Die Anweisung default-src 'self' bedeutet, dass er prinzipiell nur zusätzliche Inhalte laden darf, wenn sie vom selben Server stammen.
+            Die Anweisung script-src 'self' im content-Attribut erklärt dem Browser, dass er nur JavaScript-Dateien laden darf, die vom selben Server stammen wie dieses Dokument.
+            Diese Direktive hat eine zusätzliche Auswirkung: Der Browser darf keinen JavaScript-Code ausführen, der im HTML-Dokument selbst notiert ist. 
+            Soll JavaScript ausgeführt werden, so muss es in einer separaten Datei notiert stehen.
+            Damit auch ältere Versionen des Internet Explorer erreicht werden, benötigt es ein weiteres <meta>-Element mit "X-Content-Security-Policy". 
+            Auch ältere Versionen von auf der Webkit-Engine basierenden Browsern (wie z.B. Chrome oder Safari) 
+            unterstützen vielleicht noch nicht standardmäßig die CSP und benötigen stattdessen "X-Webkit-CSP" als Header(-Ersatz).
+        
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+        <meta http-equiv="X-WebKit-CSP" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+        
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>WaterMarky | Home</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -236,6 +253,6 @@
                     echo '<img src="rsc/no_img.png" alt="preview" class="img-thumbnail">';     
             ?>
             </div>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	</body>
 </html>
