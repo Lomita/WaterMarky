@@ -1,0 +1,16 @@
+session.gc_maxlifetime=1200
+error_reporting=E_ALL & ~E_DEPRECATED & ~E_STRICT
+display_errors=Off
+display_startup_errors=Off
+log_errors=On
+report_memleaks=On
+
+error_log=C:\xampp\htdocs\WaterMarky\logs\log.txt
+
+session.use_cookies=1
+session.use_strict_mode=0
+session.use_only_cookies=1
+session.auto_start=0
+session.cookie_lifetime=1200
+session.gc_maxlifetime=1200
+session.gc_divisor=1000
