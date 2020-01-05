@@ -1,6 +1,5 @@
 <?php
     require 'dataBaseConnection.php';
-    error_reporting(E_ERROR | E_PARSE);
     session_start();
 
     $slastname = $sfirstname = $semail = $spassword ='';
@@ -14,11 +13,13 @@
         
         $stmt = $mysqli->prepare($query);
         if($stmt == false)
+        {
+            error_log("MYSQLI ERROR: ".$mysqli->connect_error);
             $error = 'Something went wrong!';
+        }
         
         if(empty($error))
         {
-
             $stmt->bind_param('s', $tmpUsername);		
             $stmt->execute();
             
@@ -28,12 +29,17 @@
             {
                 if($user['username'] === $_SESSION['username'])
                 {
+                    error_log("USER DATA SUCCESS: User: ".$_SESSION['username']);
                     $slastname = $user['lastname'];
                     $sfirstname = $user['firstname'];
                     $semail = $user['email'];
                 }
                 else
+                {
+                    error_log("USER DATA ERROR: ERROR: Data corresponding to user not found User: ".$_SESSION['username']);
                     $error = 'The data corresponding to your account could not be found, contact the system administrator!';
+                }
+                    
             }
 
             if($_SERVER['REQUEST_METHOD'] == "POST" && 
@@ -48,7 +54,11 @@
                 if(strcmp($_POST['change_firstname'], $sfirstname) == 0 && 
                 strcmp($_POST['change_lastname'], $slastname) == 0 && 
                 strcmp($_POST['change_mail'], $semail) == 0)
+                {
+                    error_log("USER DATA ERROR: ERROR: Nothing has changed User: ".$_SESSION['username']);
                     $error .= "Nothing has changed!";
+                }
+                    
 
                 // vorname vorhanden, mindestens 1 Zeichen und maximal 30 Zeichen lang
                 if(!empty(trim($_POST['change_firstname'])) && strlen(trim($_POST['change_firstname'])) <= 30)
@@ -83,7 +93,10 @@
             
                     $stmt = $mysqli->prepare($query);
                     if($stmt == false)
+                    {
+                        error_log("MYSQLI ERROR: ".$mysqli->connect_error);
                         $error = 'Something went wrong!';
+                    }
             
                     if(empty($error))
                     {
@@ -96,8 +109,10 @@
                         
                         echo($result);
                 
+                        error_log("USER DATA CHANGED SUCCESS: User: ".$_SESSION['username']);
                         header("Location: user_info.php");
                     }
+                    error_log("USER DATA CHANGED FAILED: User: ".$_SESSION['username']);
                 }
             }
         }     

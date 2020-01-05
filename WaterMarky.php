@@ -107,7 +107,7 @@
                         <h6>Canvas</h6>
                         <select class="custom-select" id="picDropDown" name="picDropDown">
                             <?php               
-                                if($_SESSION['newFile'] === true && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
+                                if(isset($_SESSION['newFile']) && $_SESSION['newFile'] === true && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
                                 {
                                     //refill combo box
                                     $_SESSION['dropDownItems'] = array(NULL);
@@ -132,7 +132,7 @@
                         <h6>Picmark</h6>
                         <select class="custom-select" id="waterMarkDropDown" name="waterMarkDropDown">
                             <?php               
-                                if($_SESSION['newFile'] === true && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
+                                if(isset($_SESSION['newFile']) && $_SESSION['newFile'] === true && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
                                 {
                                     //refill combo box
                                     $_SESSION['dropDownItems'] = array(NULL);

@@ -1,7 +1,6 @@
 <?php
 
 require 'dataBaseConnection.php';
-error_reporting(E_ERROR | E_PARSE);
 session_start();
 
 $error = '';
@@ -44,7 +43,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 		
 		$stmt = $mysqli->prepare($query);
 		if($stmt == false)
+		{
+			error_log("MYSQLI ERROR: ".$mysqli->connect_error);
 			$error = 'Something went wrong!';
+		}
 
 		if(empty($error))
 		{
@@ -71,11 +73,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 
 					$_SESSION['role_id'] = $role;
 
-					header('Location: WaterMarky.php');		
+					//Login Successfull
+					error_log("LOGIN SUCCESS: User: ".$_SESSION['username']);
+
+					return header('Location: WaterMarky.php');		
 				}
-				else
-					$error = 'Username or password are wrong!';
 			}
+
+			//Log login attempts
+			$ur = htmlspecialchars(trim($username));
+			$pw = htmlspecialchars(trim($password));
+			error_log("LOGIN FAILED: User: ".$ur." | PW: ".$pw);
+			
+			$error = 'Username or password are wrong!';
 		}
 	}
 }
@@ -106,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 	<div class="container p-4 mb-2 bg-dark  text-light">  
 	<h1>Sign in</h1>
 	<p>
-		Please log in using you're username and password.
+		Please Sign in using you're username and password.
 	</p>
 		<?php
 			// output error message
