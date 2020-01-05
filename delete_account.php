@@ -2,7 +2,28 @@
     require 'dataBaseConnection.php';
     session_start();
   
-    //sleep(500);
+    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1200)) 
+    {
+        if(isset($_SESSION['LAST_ACTIVITY']))
+            error_log("SESSION TIMEOUT: LAST_ACTIVITY: ".$_SESSION['LAST_ACTIVITY']." User: ".$_SESSION['username']);
+
+        // last request was more than 20 minutes ago
+        session_unset();     // unset $_SESSION variable for the run-time 
+        session_destroy();   // destroy session data in storage
+  
+        header('Location: sign_in.php');
+    }
+    else
+        $_SESSION['LAST_ACTIVITY'] = time();
+  
+    if (isset($_SESSION['CREATED'])) 
+        $_SESSION['CREATED'] = time();
+    else if (time() - $_SESSION['CREATED'] > 1200) 
+    {
+        // session started more than 20 minutes ago
+        session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
+        $_SESSION['CREATED'] = time();  // update creation time
+    }
 
    /** sends a notification message and redirects to WaterMarky.php
      * @param msg message to confirm 
