@@ -130,7 +130,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
           $result = $stmt->get_result();
           $stmt->close();
   
-          error_log("SIGN IN SUCCESS: User: ".$username);
+          error_log("SIGN UP SUCCESS: User: ".$username);
           header("Location: sign_in.php");
         }
       }

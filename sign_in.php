@@ -76,18 +76,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 					//Login Successfull
 					error_log("LOGIN SUCCESS: User: ".$_SESSION['username']);
 
-					header('Location: WaterMarky.php');		
-				}
-				else
-				{
-					//Log login attempts
-					$ur = htmlspecialchars(trim($username));
-					$pw = htmlspecialchars(trim($password));
-					error_log("LOGIN FAILED: User: ".$ur." | PW: ".$pw);
-					
-					$error = 'Username or password are wrong!';
+					return header('Location: WaterMarky.php');		
 				}
 			}
+
+			//Log login attempts
+			$ur = htmlspecialchars(trim($username));
+			$pw = htmlspecialchars(trim($password));
+			error_log("LOGIN FAILED: User: ".$ur." | PW: ".$pw);
+			
+			$error = 'Username or password are wrong!';
 		}
 	}
 }
