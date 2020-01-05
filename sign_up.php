@@ -1,7 +1,6 @@
 <?php
 
 require 'dataBaseConnection.php';
-error_reporting(E_ERROR | E_PARSE);
 // Init
   $error = $message =  '';
   $firstname = $lastname = $email = $username = '';
@@ -71,18 +70,26 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     // wirte data into Database if there are no errors
     if(empty($error))
     {
-        $username = htmlspecialchars(trim($_POST['username']));
-        $password = htmlspecialchars(trim($_POST['password']));
-        $firstname = htmlspecialchars(trim($_POST['firstname']));
-        $lastname = htmlspecialchars(trim($_POST['lastname']));
-        $username = htmlspecialchars(trim($_POST['username']));
-        $email = htmlspecialchars(trim($_POST['email']));
-        $role_id = 1; //standard user
+      $username = htmlspecialchars(trim($_POST['username']));
+      $password = htmlspecialchars(trim($_POST['password']));
+      $firstname = htmlspecialchars(trim($_POST['firstname']));
+      $lastname = htmlspecialchars(trim($_POST['lastname']));
+      $username = htmlspecialchars(trim($_POST['username']));
+      $email = htmlspecialchars(trim($_POST['email']));
+      $role_id = 1; //standard user
 
-        //check if username already exists
-        $query = "SELECT * FROM users WHERE username = ?";
+      //check if username already exists
+      $query = "SELECT * FROM users WHERE username = ?";
+    
+      $stmt = $mysqli->prepare($query);
+      if($stmt == false)
+      {
+        error_log("MYSQLI ERROR: ".$mysqli->connect_error);
+        $error = 'Something went wrong!';
+      }
       
-        $stmt = $mysqli->prepare($query);
+      if(empty($error))
+      {
         $stmt->bind_param('s', $username);		
         $stmt->execute();
             
@@ -91,36 +98,42 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         while($user = $result->fetch_assoc())
         {
           if($user['username'] === $username)
+          {
             $error = 'Username '.$username.' is already taken!';
-        }               
+            error_log("SIGN UP FAILED: ERROR: username already taken User: ".$username);
+          }    
+        }
+      }              
+
+      if(empty($error))
+      {
+        $salted = "iLiKeMy".$password."ButIlIkeCaKeMuChMoRe";
+
+        $password = password_hash($salted, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO users (role_id, email, firstname, lastname, password,username)
+        VALUES (?,?,?,?,?,?); ";
+
+        $stmt = $mysqli->prepare($query);
+        
+        if($stmt == false)
+        {
+          error_log("MYSQLI ERROR: ".$mysqli->connect_error);
+          $error = 'Something went wrong!';
+        }
 
         if(empty($error))
         {
-          $salted = "iLiKeMy".$password."ButIlIkeCaKeMuChMoRe";
-
-          $password = password_hash($salted, PASSWORD_DEFAULT);
-
-          $query = "INSERT INTO users (role_id, email, firstname, lastname, password,username)
-          VALUES (?,?,?,?,?,?); ";
+          $stmt->bind_param('isssss', $role_id, $email, $firstname,$lastname,$password,$username);		
+          $stmt->execute();
   
-          $stmt = $mysqli->prepare($query);
-          
-          if($stmt == false)
-            $error = 'Something went wrong!';
-
-          if(empty($error))
-          {
-            $stmt->bind_param('isssss', $role_id, $email, $firstname,$lastname,$password,$username);		
-            $stmt->execute();
-    
-            $result = $stmt->get_result();
-            $stmt->close();
-            
-            //echo($result);
-    
-            header("Location: sign_in.php");
-          }
+          $result = $stmt->get_result();
+          $stmt->close();
+  
+          error_log("SIGN IN SUCCESS: User: ".$username);
+          header("Location: sign_in.php");
         }
+      }
     }
   }
 ?>

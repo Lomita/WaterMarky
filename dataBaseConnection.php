@@ -1,5 +1,4 @@
 <?php
-    error_reporting(E_ERROR | E_PARSE);
     $host = 'localhost';
     $username = 'dbConnect';
     $password = 'Gwy^*FrXUa6V8%54kG';
@@ -9,10 +8,13 @@
     try
     {
         if (!$mysqli = new mysqli($host, $username, $password, $database))
+        {
             throw new Exception('Unable to connect');
+        }
+            
     }
     catch(Exception $e)
     {
-        //echo $e->getMessage();
+        error_log($e->getMessage());
     }
  ?>

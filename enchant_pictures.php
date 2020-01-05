@@ -1,5 +1,4 @@
 <?php    
-    error_reporting(E_ERROR | E_PARSE);
     session_start();                    
     //debug
     //echo '<pre>';
@@ -28,6 +27,7 @@
         //Library could not be loaded    
         else
         {
+            error_log("ERROR: Imagick class could not be loaded");
             popMsg('Error: Your image could not be edited, contact the system administrator!');
             return;
         }
@@ -172,6 +172,7 @@
         $image->writeImage(getcwd(). "/enchanted_pics/pic_watermark." . $image->getImageFormat()); 
         $_SESSION['preview_pic'] = "enchanted_pics/pic_watermark." . $image->getImageFormat();
 
+        error_log("ENCHANTED PICTURE: User: ".$_SESSION['username']);
         return popMsg("Successfully enchanted picture");
     }
 

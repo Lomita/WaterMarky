@@ -1,5 +1,4 @@
 <?php
-    error_reporting(E_ERROR | E_PARSE);
     session_start();
     //echo '<pre>';
     //print_r($_POST);
@@ -28,6 +27,7 @@
             //Library could not be loaded    
             else
             {
+                error_log("ERROR: Imagick class could not be loaded");
                 popMsg('Error: Your image could not be downloaded, contact the system administrator!');
                 return;
             }
@@ -84,6 +84,8 @@
                 header('Content-Length: '.filesize($filepath));    // provide file size
                 flush(); // Flush system output buffer
                 readfile($filepath);
+
+                error_log("PICTURE DONWLOAD: User: ".$_SESSION['username']);
                 return popMsg("Successfully downloaded");
             }
         }

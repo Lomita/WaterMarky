@@ -12,10 +12,10 @@
     <body> 
         <?php
             session_start();
-            error_reporting(E_ERROR | E_PARSE);
             //logout destroy session
             if(isset($_SESSION))
             {
+                error_log("LOGOUT: User: ".$_SESSION['username']);
                 $_SESSION = array();
                 session_destroy();
 

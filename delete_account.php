@@ -1,6 +1,5 @@
 <?php
     require 'dataBaseConnection.php';
-    error_reporting(E_ERROR | E_PARSE);
     session_start();
   
     //sleep(500);
@@ -24,15 +23,22 @@
 
 		$query = "DELETE FROM users WHERE username = ?";
         
-		$stmt = $mysqli->prepare($query);
-		$stmt->bind_param('s', $username);		
-		$stmt->execute();
+        $stmt = $mysqli->prepare($query);
+        if($stmt != false)
+        {
+            $stmt->bind_param('s', $username);		
+            $stmt->execute();
 
-        //logout destroy session
-        $_SESSION = array();
-        session_destroy();
+            error_log("ACCOUNT DELTED: User: ".$_SESSION['username']);
 
-        popMsg('Account delted!');
+            //logout destroy session
+            $_SESSION = array();
+            session_destroy();
+
+            popMsg('Account delted!');
+        }
+        error_log("MYSQLI ERROR: ".$mysqli->connect_error);
+        popMsg('Something went wrong!');
     } 
 ?>  
 
