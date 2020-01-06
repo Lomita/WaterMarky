@@ -5,7 +5,8 @@ display_startup_errors=Off
 log_errors=On
 report_memleaks=On
 
-error_log=C:\xampp\htdocs\WaterMarky\logs\log.txt
+; Maybe you have to create the folder and file on your own!
+error_log="C:\xampp\logs\watermarky.log"
 
 session.use_cookies=1
 session.use_strict_mode=0
