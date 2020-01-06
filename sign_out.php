@@ -22,7 +22,7 @@
                 session_unset();     // unset $_SESSION variable for the run-time 
                 session_destroy();   // destroy session data in storage
           
-                header('Location: sign_in.php');
+                header('Location: WaterMarky.php');
             }
             else
                 $_SESSION['LAST_ACTIVITY'] = time();

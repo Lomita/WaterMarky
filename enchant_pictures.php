@@ -6,28 +6,31 @@
 	//print_r($_SESSION);
     //echo '</pre>';
 
-    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1200)) 
+    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY']) > 1200) 
     {
-        if(isset($_SESSION['LAST_ACTIVITY']))
+        if(isset($_SESSION['username']))
             error_log("SESSION TIMEOUT: LAST_ACTIVITY: ".$_SESSION['LAST_ACTIVITY']." User: ".$_SESSION['username']);
 
         // last request was more than 20 minutes ago
         session_unset();     // unset $_SESSION variable for the run-time 
         session_destroy();   // destroy session data in storage
-  
         header('Location: sign_in.php');
     }
     else
         $_SESSION['LAST_ACTIVITY'] = time();
-  
-    if (isset($_SESSION['CREATED'])) 
+ 
+        
+    if (!isset($_SESSION['CREATED']))
         $_SESSION['CREATED'] = time();
-    else if (time() - $_SESSION['CREATED'] > 1200) 
+    else if(isset($_SESSION['CREATED']) && (time() - $_SESSION['CREATED']) > 1200)
     {
+        if(isset($_SESSION['username']))
+            error_log("SESSION REGENERATE ID: CREATED: ".$_SESSION['CREATED']." User: ".$_SESSION['username']);
+        
         // session started more than 20 minutes ago
         session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
         $_SESSION['CREATED'] = time();  // update creation time
-    }
+    } 
 
     if(!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] != true)
         header('Location: WaterMarky.php');
