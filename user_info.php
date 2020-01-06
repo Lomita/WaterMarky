@@ -51,21 +51,22 @@
             
             $result = $stmt->get_result();
 
+            $found = false;
+
             while($user = $result->fetch_assoc())
             {
-                if($user['username'] === $_SESSION['username'])
+                if(strcmp($user['username'], $_SESSION['username']) === 0)
                 {
-                    error_log("SHOW USER DATA SUCCESS: User: ".$_SESSION['username']);
                     $slastname = $user['lastname'];
                     $sfirstname = $user['firstname'];
                     $semail = $user['email'];
+                    $error = ''; 
                 }
                 else
                 {
                     error_log("SHOW USER DATA ERROR: ERROR: Data corresponding to user not found User: ".$_SESSION['username']);
-                    $error = 'The data corresponding to your account could not be found, contact the system administrator!';
+                    $error = 'The data corresponding to your account could not be found, contact the system administrator!';                       
                 }
-                    
             }
 
             if($_SERVER['REQUEST_METHOD'] == "POST" && 
@@ -136,8 +137,9 @@
                         echo($result);
                 
                         error_log("USER DATA CHANGED SUCCESS: User: ".$_SESSION['username']);
-                        header("Location: user_info.php");
+                        return header("Location: user_info.php");
                     }
+        
                     error_log("USER DATA CHANGED FAILED: User: ".$_SESSION['username']);
                 }
             }

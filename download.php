@@ -113,7 +113,7 @@
                 flush(); // Flush system output buffer
                 readfile($filepath);
 
-                error_log("PICTURE DONWLOAD: User: ".$_SESSION['username']);
+                error_log("PICTURE DOWNLOAD: User: ".$_SESSION['username']);
                 return popMsg("Successfully downloaded");
             }
         }
