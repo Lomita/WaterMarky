@@ -29,14 +29,14 @@
             {
                 if($user['username'] === $_SESSION['username'])
                 {
-                    error_log("USER DATA SUCCESS: User: ".$_SESSION['username']);
+                    error_log("SHOW USER DATA SUCCESS: User: ".$_SESSION['username']);
                     $slastname = $user['lastname'];
                     $sfirstname = $user['firstname'];
                     $semail = $user['email'];
                 }
                 else
                 {
-                    error_log("USER DATA ERROR: ERROR: Data corresponding to user not found User: ".$_SESSION['username']);
+                    error_log("SHOW USER DATA ERROR: ERROR: Data corresponding to user not found User: ".$_SESSION['username']);
                     $error = 'The data corresponding to your account could not be found, contact the system administrator!';
                 }
                     
