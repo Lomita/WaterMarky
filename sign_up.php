@@ -1,141 +1,171 @@
 <?php
+  session_start();
 
-require 'dataBaseConnection.php';
-// Init
-  $error = $message =  '';
-  $firstname = $lastname = $email = $username = '';
-
-// did "POST" carry Data?
-if($_SERVER['REQUEST_METHOD'] == "POST")
-{
-    /* Output of entire $_POST Array
-      echo "<pre>";
-      print_r($_POST);
-      echo "</pre>";
-    */
-
-    // firstname exists, miniimum 1 character and maximum 30 characters long
-    if(isset($_POST['firstname']) && !empty(trim($_POST['firstname'])) && strlen(trim($_POST['firstname'])) <= 30)
-      // escape special characters > stop script injection
-      $firstname = htmlspecialchars(trim($_POST['firstname']));
- 
-    else 
-      $error .= "Please enter a correct firstname.<br />";
-
-    // lastname exists, miniimum 1 character and maximum 30 characters long
-    if(isset($_POST['lastname']) && !empty(trim($_POST['lastname'])) && strlen(trim($_POST['lastname'])) <= 30)
-      //escape special characters > stop script injection
-      $lastname = htmlspecialchars(trim($_POST['lastname']));
-
-    else 
-      $error .= "Please enter a correct lastname.<br />";
-
-    // mail exists, miniimum 1 character and maximum 100 characters long
-    if(isset($_POST['email']) && !empty(trim($_POST['email'])) && strlen(trim($_POST['email'])) <= 100)
+    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY']) > 1200) 
     {
-      $email = htmlspecialchars(trim($_POST['email']));
-      
-      // mail correct?
-      if (filter_var($email, FILTER_VALIDATE_EMAIL) === false)
-        $error .= "Please enter a correct mailadress.<br />";
-    } 
-    else 
-      // output error message
-      $error .= "Please enter a valid mailadress.<br />";
+        if(isset($_SESSION['username']))
+            error_log("SESSION TIMEOUT: LAST_ACTIVITY: ".$_SESSION['LAST_ACTIVITY']." User: ".$_SESSION['username']);
 
-    // username exists, miniimum 6 character and maximum 30 characters long
-    if(isset($_POST['username']) && !empty(trim($_POST['username'])) && strlen(trim($_POST['username'])) <= 30)
-    {
-      $username = trim($_POST['username']);
-      // does the username meet the requirements? (minimum 6 characters, upper- and lower-case letter)
-      if(!preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}/", $username))
-        $error .= "The username is not in the correct format.<br />";
-    } 
-    else 
-      // output error message
-      $error .= "Please enter a correct username.<br />";
-
-    // password exists, minimum 8 characters
-    if(isset($_POST['password']) && !empty(trim($_POST['password']))){
-      $password = trim($_POST['password']);
-      //does the password meet the requirements? (minimum 8 characters, numbers, no breaks, minimum one upper- and one lower-case letter)
-      if(!preg_match("/(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password))
-        $error .= "The password does not meet the required format.<br />";
-
-    } 
+        // last request was more than 20 minutes ago
+        session_unset();     // unset $_SESSION variable for the run-time 
+        session_destroy();   // destroy session data in storage
+    }
     else
-      // output error message
-      $error .= "Please enter a correct lastname.<br />";
-
-    // wirte data into Database if there are no errors
-    if(empty($error))
-    {
-      $username = htmlspecialchars(trim($_POST['username']));
-      $password = htmlspecialchars(trim($_POST['password']));
-      $firstname = htmlspecialchars(trim($_POST['firstname']));
-      $lastname = htmlspecialchars(trim($_POST['lastname']));
-      $username = htmlspecialchars(trim($_POST['username']));
-      $email = htmlspecialchars(trim($_POST['email']));
-      $role_id = 1; //standard user
-
-      //check if username already exists
-      $query = "SELECT * FROM users WHERE username = ?";
-    
-      $stmt = $mysqli->prepare($query);
-      if($stmt == false)
-      {
-        error_log("MYSQLI ERROR: ".$mysqli->connect_error);
-        $error = 'Something went wrong!';
-      }
-      
-      if(empty($error))
-      {
-        $stmt->bind_param('s', $username);		
-        $stmt->execute();
-            
-        $result = $stmt->get_result();
-    
-        while($user = $result->fetch_assoc())
-        {
-          if($user['username'] === $username)
-          {
-            $error = 'Username '.$username.' is already taken!';
-            error_log("SIGN UP FAILED: ERROR: username already taken User: ".$username);
-          }    
-        }
-      }              
-
-      if(empty($error))
-      {
-        $salted = "iLiKeMy".$password."ButIlIkeCaKeMuChMoRe";
-
-        $password = password_hash($salted, PASSWORD_DEFAULT);
-
-        $query = "INSERT INTO users (role_id, email, firstname, lastname, password,username)
-        VALUES (?,?,?,?,?,?); ";
-
-        $stmt = $mysqli->prepare($query);
+        $_SESSION['LAST_ACTIVITY'] = time();
+ 
         
+    if (!isset($_SESSION['CREATED']))
+        $_SESSION['CREATED'] = time();
+    else if(isset($_SESSION['CREATED']) && (time() - $_SESSION['CREATED']) > 1200)
+    {
+        if(isset($_SESSION['username']))
+            error_log("SESSION REGENERATE ID: CREATED: ".$_SESSION['CREATED']." User: ".$_SESSION['username']);
+        
+        // session started more than 20 minutes ago
+        session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
+        $_SESSION['CREATED'] = time();  // update creation time
+    } 
+
+  if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true)
+      header('Location: WaterMarky.php');
+
+  require 'dataBaseConnection.php';
+
+  // Init
+    $error = $message =  '';
+    $firstname = $lastname = $email = $username = '';
+
+  // did "POST" carry Data?
+  if($_SERVER['REQUEST_METHOD'] == "POST")
+  {
+      /* Output of entire $_POST Array
+        echo "<pre>";
+        print_r($_POST);
+        echo "</pre>";
+      */
+
+      // firstname exists, miniimum 1 character and maximum 30 characters long
+      if(isset($_POST['firstname']) && !empty(trim($_POST['firstname'])) && strlen(trim($_POST['firstname'])) <= 30)
+        // escape special characters > stop script injection
+        $firstname = htmlspecialchars(trim($_POST['firstname']));
+  
+      else 
+        $error .= "Please enter a correct firstname.<br />";
+
+      // lastname exists, miniimum 1 character and maximum 30 characters long
+      if(isset($_POST['lastname']) && !empty(trim($_POST['lastname'])) && strlen(trim($_POST['lastname'])) <= 30)
+        //escape special characters > stop script injection
+        $lastname = htmlspecialchars(trim($_POST['lastname']));
+
+      else 
+        $error .= "Please enter a correct lastname.<br />";
+
+      // mail exists, miniimum 1 character and maximum 100 characters long
+      if(isset($_POST['email']) && !empty(trim($_POST['email'])) && strlen(trim($_POST['email'])) <= 100)
+      {
+        $email = htmlspecialchars(trim($_POST['email']));
+        
+        // mail correct?
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false)
+          $error .= "Please enter a correct mailadress.<br />";
+      } 
+      else 
+        // output error message
+        $error .= "Please enter a valid mailadress.<br />";
+
+      // username exists, miniimum 6 character and maximum 30 characters long
+      if(isset($_POST['username']) && !empty(trim($_POST['username'])) && strlen(trim($_POST['username'])) <= 30)
+      {
+        $username = trim($_POST['username']);
+        // does the username meet the requirements? (minimum 6 characters, upper- and lower-case letter)
+        if(!preg_match("/(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}/", $username))
+          $error .= "The username is not in the correct format.<br />";
+      } 
+      else 
+        // output error message
+        $error .= "Please enter a correct username.<br />";
+
+      // password exists, minimum 8 characters
+      if(isset($_POST['password']) && !empty(trim($_POST['password']))){
+        $password = trim($_POST['password']);
+        //does the password meet the requirements? (minimum 8 characters, numbers, no breaks, minimum one upper- and one lower-case letter)
+        if(!preg_match("/(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $password))
+          $error .= "The password does not meet the required format.<br />";
+
+      } 
+      else
+        // output error message
+        $error .= "Please enter a correct lastname.<br />";
+
+      // wirte data into Database if there are no errors
+      if(empty($error))
+      {
+        $username = htmlspecialchars(trim($_POST['username']));
+        $password = htmlspecialchars(trim($_POST['password']));
+        $firstname = htmlspecialchars(trim($_POST['firstname']));
+        $lastname = htmlspecialchars(trim($_POST['lastname']));
+        $username = htmlspecialchars(trim($_POST['username']));
+        $email = htmlspecialchars(trim($_POST['email']));
+        $role_id = 1; //standard user
+
+        //check if username already exists
+        $query = "SELECT * FROM users WHERE username = ?";
+      
+        $stmt = $mysqli->prepare($query);
         if($stmt == false)
         {
           error_log("MYSQLI ERROR: ".$mysqli->connect_error);
           $error = 'Something went wrong!';
         }
+        
+        if(empty($error))
+        {
+          $stmt->bind_param('s', $username);		
+          $stmt->execute();
+              
+          $result = $stmt->get_result();
+      
+          while($user = $result->fetch_assoc())
+          {
+            if($user['username'] === $username)
+            {
+              $error = 'Username '.$username.' is already taken!';
+              error_log("SIGN UP FAILED: ERROR: username already taken User: ".$username);
+            }    
+          }
+        }              
 
         if(empty($error))
         {
-          $stmt->bind_param('isssss', $role_id, $email, $firstname,$lastname,$password,$username);		
-          $stmt->execute();
-  
-          $result = $stmt->get_result();
-          $stmt->close();
-  
-          error_log("SIGN UP SUCCESS: User: ".$username);
-          header("Location: sign_in.php");
+          $salted = "iLiKeMy".$password."ButIlIkeCaKeMuChMoRe";
+
+          $password = password_hash($salted, PASSWORD_DEFAULT);
+
+          $query = "INSERT INTO users (role_id, email, firstname, lastname, password,username)
+          VALUES (?,?,?,?,?,?); ";
+
+          $stmt = $mysqli->prepare($query);
+          
+          if($stmt == false)
+          {
+            error_log("MYSQLI ERROR: ".$mysqli->connect_error);
+            $error = 'Something went wrong!';
+          }
+
+          if(empty($error))
+          {
+            $stmt->bind_param('isssss', $role_id, $email, $firstname,$lastname,$password,$username);		
+            $stmt->execute();
+    
+            $result = $stmt->get_result();
+            $stmt->close();
+    
+            error_log("SIGN UP SUCCESS: User: ".$username);
+            header("Location: sign_in.php");
+          }
         }
       }
     }
-  }
 ?>
 
 <!DOCTYPE html>

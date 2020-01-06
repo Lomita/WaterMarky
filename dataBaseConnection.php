@@ -1,4 +1,7 @@
 <?php
+    if(!isset($_SERVER['HTTP_REFERER']))
+        header('Location: WaterMarky.php');
+
     $host = 'localhost';
     $username = 'dbConnect';
     $password = 'Gwy^*FrXUa6V8%54kG';

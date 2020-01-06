@@ -1,6 +1,35 @@
 <?php
     session_start();
-    
+
+    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY']) > 1200) 
+    {
+        if(isset($_SESSION['username']))
+            error_log("SESSION TIMEOUT: LAST_ACTIVITY: ".$_SESSION['LAST_ACTIVITY']." User: ".$_SESSION['username']);
+
+        // last request was more than 20 minutes ago
+        session_unset();     // unset $_SESSION variable for the run-time 
+        session_destroy();   // destroy session data in storage
+        header('Location: sign_in.php');
+    }
+    else
+        $_SESSION['LAST_ACTIVITY'] = time();
+ 
+        
+    if (!isset($_SESSION['CREATED']))
+        $_SESSION['CREATED'] = time();
+    else if(isset($_SESSION['CREATED']) && (time() - $_SESSION['CREATED']) > 1200)
+    {
+        if(isset($_SESSION['username']))
+            error_log("SESSION REGENERATE ID: CREATED: ".$_SESSION['CREATED']." User: ".$_SESSION['username']);
+        
+        // session started more than 20 minutes ago
+        session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
+        $_SESSION['CREATED'] = time();  // update creation time
+    } 
+
+    if(!isset($_SESSION['loggedin']) && $_SESSION['loggedin'] != true)
+        header('Location: WaterMarky.php');
+
     /** sends a notification message and redirects to WaterMarky.php
      * @param msg message to confirm 
      */
@@ -53,7 +82,7 @@
             error_log("UPLOAD SUCCESS: FILE: ".$uniqFileName." User: ".$_SESSION['username']);          
             return popMsg("Successfully uploaded");
         }
-        
+
         error_log("UPLOAD FAILED: ERROR: There was an error saving the file FILE: ".$uniqFileName." User:".$_SESSION['username']);
         return popMsg("There was an error uploading your file!");     
     }

@@ -1,16 +1,46 @@
+
+<?php
+    session_start();
+
+    if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY']) > 1200) 
+    {
+        if(isset($_SESSION['username']))
+            error_log("SESSION TIMEOUT: LAST_ACTIVITY: ".$_SESSION['LAST_ACTIVITY']." User: ".$_SESSION['username']);
+
+        // last request was more than 20 minutes ago
+        session_unset();     // unset $_SESSION variable for the run-time 
+        session_destroy();   // destroy session data in storage
+    }
+    else
+        $_SESSION['LAST_ACTIVITY'] = time();
+ 
+        
+    if (!isset($_SESSION['CREATED']))
+        $_SESSION['CREATED'] = time();
+    else if(isset($_SESSION['CREATED']) && (time() - $_SESSION['CREATED']) > 1200)
+    {
+        if(isset($_SESSION['username']))
+            error_log("SESSION REGENERATE ID: CREATED: ".$_SESSION['CREATED']." User: ".$_SESSION['username']);
+        
+        // session started more than 20 minutes ago
+        session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
+        $_SESSION['CREATED'] = time();  // update creation time
+    } 
+?>
+
 <!DOCTYPE html>
 <html lang=CH>
 	<head>
         <meta charset="UTF-8" />
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
-        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
-        <meta http-equiv="X-WebKit-CSP" content="default-src 'self'; script-src 'self'; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; script-src-elem *; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'; script-src-elem *; img-src *; style-src 'unsafe-inline'; style-src-elem *">
+        <meta http-equiv="X-WebKit-CSP" content="default-src 'self'; script-src 'self'; script-src-elem *; img-src *; style-src 'unsafe-inline'; style-src-elem *">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>WaterMarky | Pre Page</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	</head>
 	<body> 
-    
+
     <!-- icon and title -->
     <div class="container bg-dark text-light"> 
         <div class="container bg-light  text-dark"> 

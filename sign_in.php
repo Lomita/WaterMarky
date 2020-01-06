@@ -2,6 +2,31 @@
 
 require 'dataBaseConnection.php';
 session_start();
+    
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY']) > 1200) 
+{
+	if(isset($_SESSION['username']))
+		error_log("SESSION TIMEOUT: LAST_ACTIVITY: ".$_SESSION['LAST_ACTIVITY']." User: ".$_SESSION['username']);
+
+	// last request was more than 20 minutes ago
+	session_unset();     // unset $_SESSION variable for the run-time 
+	session_destroy();   // destroy session data in storage
+}
+else
+	$_SESSION['LAST_ACTIVITY'] = time();
+
+	
+if (!isset($_SESSION['CREATED']))
+	$_SESSION['CREATED'] = time();
+else if(isset($_SESSION['CREATED']) && (time() - $_SESSION['CREATED']) > 1200)
+{
+	if(isset($_SESSION['username']))
+		error_log("SESSION REGENERATE ID: CREATED: ".$_SESSION['CREATED']." User: ".$_SESSION['username']);
+	
+	// session started more than 20 minutes ago
+	session_regenerate_id(true);    // change session ID for the current session and invalidate old session ID
+	$_SESSION['CREATED'] = time();  // update creation time
+} 
 
 $error = '';
 $message = '';
@@ -61,12 +86,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error))
 				{
 					$message = 'You have been logged in successfully!';
 
-					session_regenerate_id();
+					session_regenerate_id(true);
 					
 					$_SESSION = array();
 					$_SESSION['username'] = htmlspecialchars(trim($username));
 					$_SESSION['loggedin'] = true;
-					
+
 					$role = 'User';
 					if($user['role_id'] == 2)
 						$role = 'Magick User';
